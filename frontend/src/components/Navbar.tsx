@@ -1,0 +1,23 @@
+import { HStack, Image, Show, Text } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
+import { logo } from "../assets";
+import { ColorModeSwitch, SearchInput } from ".";
+
+const Navbar = () => {
+  return (
+    <HStack paddingX={4}>
+      <Link to="/">
+        <HStack>
+          <Image src={logo} boxSize="50px" objectFit="cover" />
+          <Show above="md">
+            <Text>ML Course</Text>
+          </Show>
+        </HStack>
+      </Link>
+      <SearchInput />
+      <ColorModeSwitch />
+    </HStack>
+  );
+};
+
+export default Navbar;
