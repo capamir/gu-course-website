@@ -33,8 +33,9 @@ const SearchInput = () => {
         <Input
           ref={ref}
           borderRadius={20}
-          placeholder="Search games..."
+          placeholder="دنبال چه دوره ای هستی؟..."
           variant="field"
+          fontFamily="fontBody"
         />
       </InputGroup>
     </form>

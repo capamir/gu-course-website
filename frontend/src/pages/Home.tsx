@@ -1,11 +1,12 @@
 import { Box } from "@chakra-ui/react";
-import { CourseHeading } from "../components";
+import { CourseGrid, CourseHeading } from "../components";
 
 const Home = () => {
   return (
     <Box>
-      <Box paddingRight={2}>
+      <Box paddingRight={3}>
         <CourseHeading />
+        <CourseGrid />
       </Box>
     </Box>
   );
