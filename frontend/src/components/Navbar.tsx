@@ -5,7 +5,7 @@ import { ColorModeSwitch, SearchInput } from ".";
 
 const Navbar = () => {
   return (
-    <HStack paddingX={4}>
+    <HStack padding={4} boxShadow="sm">
       <Link to="/">
         <HStack>
           <Image src={logo} boxSize="50px" objectFit="cover" />

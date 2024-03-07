@@ -1,5 +1,10 @@
 import { useRef } from "react";
-import { Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
+import {
+  Input,
+  InputGroup,
+  InputLeftElement,
+  useColorMode,
+} from "@chakra-ui/react";
 import { BsSearch } from "react-icons/bs";
 // import useGameQueryStore from "../store";
 import { useNavigate } from "react-router-dom";
@@ -8,6 +13,11 @@ const SearchInput = () => {
   const ref = useRef<HTMLInputElement>(null);
   //   const setSearchText = useGameQueryStore((s) => s.setSearchText);
   const navigate = useNavigate();
+  const { colorMode } = useColorMode();
+  const border = colorMode == "light" && {
+    border: "1px",
+    borderColor: "gray.200",
+  };
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -18,7 +28,7 @@ const SearchInput = () => {
   };
   return (
     <form onSubmit={handleSubmit}>
-      <InputGroup>
+      <InputGroup borderRadius="3xl" {...border}>
         <InputLeftElement children={<BsSearch />} />
         <Input
           ref={ref}
