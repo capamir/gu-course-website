@@ -1,21 +1,10 @@
 from django.db import models
+from uuid import uuid4
 
 # Create your models here.
 class Promotion(models.Model):
     description = models.CharField(max_length=255)
     discount = models.FloatField()
-
-
-class Collection(models.Model):
-    title = models.CharField(max_length=255)
-    featured_product = models.ForeignKey(
-        'Product', on_delete=models.SET_NULL, null=True, related_name='+', blank=True)
-
-    def __str__(self) -> str:
-        return self.title
-
-    class Meta:
-        ordering = ['title']
 
 
 class Product(models.Model):
@@ -25,7 +14,6 @@ class Product(models.Model):
     price = models.IntegerField()
     available = models.BooleanField(default=True)
     updated = models.DateTimeField(auto_now=True)
-    collection = models.ForeignKey(Collection, on_delete=models.PROTECT, related_name='products')
     promotions = models.ManyToManyField(Promotion, blank=True)
 
     def __str__(self) -> str:
@@ -84,6 +72,7 @@ class OrderItem(models.Model):
 	
 
 class Cart(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid4)
     created_at = models.DateTimeField(auto_now_add=True)
 
 
@@ -91,6 +80,9 @@ class CartItem(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     
+    class Meta:
+        unique_together = [['cart', 'product']]
+
 
 class Review(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews')
