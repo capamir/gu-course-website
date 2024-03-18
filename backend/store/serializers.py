@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from decimal import Decimal
 from .models import Product, Review, Cart, CartItem
 
 
@@ -71,6 +72,7 @@ class AddCartItemSerializer(serializers.ModelSerializer):
         product_id = self.validated_data['product_id']
 
         try: 
+            cart_item = CartItem.objects.get(cart_id=cart_id, product_id=product_id)
             self.instance = cart_item
         except CartItem.DoesNotExist:
             self.instance = CartItem.objects.create(cart_id=cart_id, **self.validated_data)
