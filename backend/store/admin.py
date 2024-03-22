@@ -1,4 +1,8 @@
 from django.contrib import admin
+from django.db.models.aggregates import Count
+from django.urls import reverse
+from django.utils.html import format_html, urlencode
+
 from .models import Product, Customer, Order, OrderItem
 
 # Register your models here.
@@ -21,7 +25,7 @@ class CustomerAdmin(admin.ModelAdmin):
     list_select_related = ['user']
     ordering = ['user__full_name']
     search_fields = ['full_name__istartswith', 'last_name__istartswith']
-
+    
     @admin.display(ordering='orders_count')
     def orders(self, customer):
         url = (
