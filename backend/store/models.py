@@ -17,12 +17,18 @@ class Product(models.Model):
     available = models.BooleanField(default=True)
     updated = models.DateTimeField(auto_now=True)
     promotions = models.ManyToManyField(Promotion, blank=True)
+    image = models.ImageField(null=True, blank=True, default="default.jpg")
 
     def __str__(self) -> str:
         return self.title
-
+    
     class Meta:
         ordering = ['title']
+    
+    @property
+    def reviewers(self):
+        queryset = self.reviews.all()
+        return queryset
 
 
 class Customer(models.Model):

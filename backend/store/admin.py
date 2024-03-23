@@ -16,6 +16,12 @@ class ProductAdmin(admin.ModelAdmin):
     list_per_page = 10
     search_fields = ['title']
     raw_id_fields = ['promotions']
+    readonly_fields = ['thumbnail']
+
+    def thumbnail(self, instance):
+        if instance.image.name != '':
+            return format_html(f'<img src="{instance.image.url}" class="thumbnail" />')
+        return ''
 
 
 class CustomerAdmin(admin.ModelAdmin):

@@ -8,6 +8,7 @@ django = "*"
 djangorestframework = "*"
 drf-nested-routers = "*"
 djangorestframework-simplejwt = "*"
+pillow = "*"
 
 [dev-packages]
 
