@@ -12,16 +12,31 @@ import { IoPersonSharp } from "react-icons/io5";
 import { IoIosPerson, IoMdTime } from "react-icons/io";
 import { FaStar } from "react-icons/fa";
 import { noImage } from "../../assets";
+import { Link } from "react-router-dom";
 
 const CourseCard = () => {
   return (
     <Card boxShadow="xl" borderRadius="3xl">
-      <Image src={noImage} borderRadius="3xl" />
+      <Link to="/2">
+        <Image src={noImage} borderRadius="3xl" />
+      </Link>
       <CardBody>
-        <Heading as="h2" fontSize="2xl" fontFamily="fontBold" marginBottom={4}>
-          آموزش شبکه عصبی
-        </Heading>
-        <Text fontFamily="fontBold" fontSize="sm" color="gray">
+        <Link to="/2">
+          <Heading
+            as="h2"
+            fontSize="2xl"
+            fontFamily="fontBold"
+            marginBottom={4}
+          >
+            آموزش شبکه عصبی
+          </Heading>
+        </Link>
+        <Text
+          fontFamily="fontBold"
+          fontSize="sm"
+          color="gray"
+          paddingBottom={6}
+        >
           همه میدونیم که هوش مصنوعی چقدر مورد توجه قرار گرفته
         </Text>
         <Flex

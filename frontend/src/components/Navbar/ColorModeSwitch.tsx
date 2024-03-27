@@ -13,7 +13,11 @@ const ColorModeSitch = () => {
         onChange={toggleColorMode}
       />
       <Text whiteSpace="nowrap">
-        {colorMode === "dark" ? <BsFillMoonStarsFill /> : <MdWbSunny />}
+        {colorMode === "dark" ? (
+          <BsFillMoonStarsFill size={20} />
+        ) : (
+          <MdWbSunny size={20} />
+        )}
       </Text>
     </HStack>
   );

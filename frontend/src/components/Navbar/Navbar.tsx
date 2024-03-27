@@ -1,7 +1,7 @@
 import { HStack, Image, Show, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import { logo } from "../assets";
-import { ColorModeSwitch, SearchInput } from ".";
+import { logo } from "../../assets";
+import { ColorModeSwitch, SearchInput, UserIcon } from ".";
 
 const Navbar = () => {
   return (
@@ -16,6 +16,7 @@ const Navbar = () => {
       </Link>
       <SearchInput />
       <ColorModeSwitch />
+      <UserIcon />
     </HStack>
   );
 };
