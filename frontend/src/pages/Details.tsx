@@ -15,7 +15,18 @@ import {
   Spacer,
   Text,
 } from "@chakra-ui/react";
-import { HiOutlineAcademicCap } from "react-icons/hi2";
+import {
+  BsBackpack2,
+  BsCameraReels,
+  BsChatTextFill,
+  BsInfoCircle,
+} from "react-icons/bs";
+import { FaPlusCircle, FaStar } from "react-icons/fa";
+import { GiNotebook } from "react-icons/gi";
+import { HiMiniAcademicCap, HiOutlineAcademicCap } from "react-icons/hi2";
+import { IoIosPeople } from "react-icons/io";
+import { IoCalendarOutline, IoPeopleOutline } from "react-icons/io5";
+import { LuClock4 } from "react-icons/lu";
 import { noImage } from "../assets";
 import { Toman } from "../components";
 
@@ -74,45 +85,134 @@ const Details = () => {
       >
         <GridItem>
           <SimpleGrid columns={{ sm: 2, md: 2, lg: 3, xl: 3 }} spacing={6}>
-            {arr.map((i) => (
-              <Card key={i} borderRadius="xl" boxShadow="lg">
-                <CardBody>
-                  <HStack>
-                    <HiOutlineAcademicCap size={36} color="green" />
-                    <Box>
-                      <Heading as="h4" fontSize="lg" fontFamily="fontBold">
-                        وضعیت دوره
-                      </Heading>
-                      <Text>16 ساعت</Text>
-                    </Box>
-                  </HStack>
-                </CardBody>
-              </Card>
-            ))}
+            <Card borderRadius="xl" boxShadow="lg">
+              <CardBody>
+                <HStack gap={3}>
+                  <BsInfoCircle size={36} color="green" />
+                  <Box>
+                    <Heading as="h4" fontSize="md" fontFamily="fontBold">
+                      وضعیت دوره
+                    </Heading>
+                    <Text>16 ساعت</Text>
+                  </Box>
+                </HStack>
+              </CardBody>
+            </Card>
+            <Card borderRadius="xl" boxShadow="lg">
+              <CardBody>
+                <HStack gap={3}>
+                  <LuClock4 size={36} color="green" />
+                  <Box>
+                    <Heading as="h4" fontSize="md" fontFamily="fontBold">
+                      وضعیت دوره
+                    </Heading>
+                    <Text>16 ساعت</Text>
+                  </Box>
+                </HStack>
+              </CardBody>
+            </Card>
+            <Card borderRadius="xl" boxShadow="lg">
+              <CardBody>
+                <HStack gap={3}>
+                  <IoCalendarOutline size={36} color="green" />
+                  <Box>
+                    <Heading as="h4" fontSize="md" fontFamily="fontBold">
+                      وضعیت دوره
+                    </Heading>
+                    <Text>16 ساعت</Text>
+                  </Box>
+                </HStack>
+              </CardBody>
+            </Card>
+            <Card borderRadius="xl" boxShadow="lg">
+              <CardBody>
+                <HStack gap={3}>
+                  <IoPeopleOutline size={36} color="green" />
+                  <Box>
+                    <Heading as="h4" fontSize="md" fontFamily="fontBold">
+                      وضعیت دوره
+                    </Heading>
+                    <Text>16 ساعت</Text>
+                  </Box>
+                </HStack>
+              </CardBody>
+            </Card>
+            <Card borderRadius="xl" boxShadow="lg">
+              <CardBody>
+                <HStack gap={3}>
+                  <BsBackpack2 size={36} color="green" />
+                  <Box>
+                    <Heading as="h4" fontSize="md" fontFamily="fontBold">
+                      وضعیت دوره
+                    </Heading>
+                    <Text>16 ساعت</Text>
+                  </Box>
+                </HStack>
+              </CardBody>
+            </Card>
+            <Card borderRadius="xl" boxShadow="lg">
+              <CardBody>
+                <HStack gap={3}>
+                  <BsCameraReels size={36} color="green" />
+                  <Box>
+                    <Heading as="h4" fontSize="md" fontFamily="fontBold">
+                      وضعیت دوره
+                    </Heading>
+                    <Text>16 ساعت</Text>
+                  </Box>
+                </HStack>
+              </CardBody>
+            </Card>
           </SimpleGrid>
           <Card marginY={6}>
             <CardBody>
-              <HStack marginBottom={7}>
-                <HiOutlineAcademicCap size={42} />
+              <HStack marginBottom={7} alignItems="center" gap={2}>
+                <GiNotebook size={38} color="#fcb900" />
                 <Heading as="h2" fontFamily="fontBold" fontSize="2xl">
                   توضیحات
                 </Heading>
               </HStack>
               <Text>
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus
-                aperiam porro, numquam perferendis nulla nam, hic veniam
-                recusandae, laborum sit error quam dolorum asperiores deleniti
-                dolores odit dicta! In, exercitationem! Lorem ipsum dolor sit
-                amet consectetur adipisicing elit. Eum ut quasi cumque debitis
-                dolore nesciunt, laudantium nisi natus non cum. Cumque quisquam
-                sunt aliquam expedita voluptatibus porro similique ipsa debitis?
+                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با
+                استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله
+                در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد
+                نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد،
+                کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان
+                جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را
+                برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در
+                زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و
+                دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و
+                زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات
+                پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد. لورم
+                ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با
+                استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله
+                در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد
+                نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد،
+                کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان
+                جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را
+                برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در
+                زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و
+                دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و
+                زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات
+                پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد. لورم
+                ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با
+                استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله
+                در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد
+                نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد،
+                کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان
+                جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را
+                برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در
+                زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و
+                دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و
+                زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات
+                پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
               </Text>
             </CardBody>
           </Card>
           <Card marginY={6}>
             <CardBody>
               <HStack marginBottom={7}>
-                <HiOutlineAcademicCap size={42} color="blue" />
+                <HiMiniAcademicCap size={42} color="#0693e3" />
                 <Heading as="h2" fontFamily="fontBold" fontSize="2xl">
                   سرفصل ها
                 </Heading>
@@ -142,19 +242,19 @@ const Details = () => {
           <Card marginY={6}>
             <CardBody>
               <Flex>
-                <HStack marginBottom={7}>
-                  <HiOutlineAcademicCap size={42} />
+                <HStack marginBottom={7} gap={3}>
+                  <BsChatTextFill size={36} color="#cf2e2e" />
                   <Heading as="h2" fontFamily="fontBold" fontSize="2xl">
                     نظرات
                   </Heading>
                 </HStack>
                 <Spacer />
                 <Button
-                  leftIcon={<HiOutlineAcademicCap size={24} />}
+                  leftIcon={<FaPlusCircle size={18} />}
                   colorScheme="green"
                   variant="solid"
                   borderRadius="3xl"
-                  size="sm"
+                  size="md"
                   fontFamily="fontBody"
                   fontSize="sm"
                 >
@@ -214,39 +314,26 @@ const Details = () => {
             <Card borderRadius="2xl" boxShadow="md">
               <CardBody>
                 <Flex gap={2} marginBottom={9}>
-                  <Box
-                    bg="gray.200"
-                    paddingX={5}
-                    paddingY={4}
-                    borderRadius="xl"
-                  >
-                    <HStack>
-                      <HiOutlineAcademicCap size={42} color="green" />
-                      <Box>
-                        <Heading as="h4" fontSize="lg" fontFamily="fontBody">
-                          45
-                        </Heading>
-                        <Text fontSize="sm">دانشجو</Text>
-                      </Box>
-                    </HStack>
-                  </Box>
+                  <HStack bg="gray.100" padding={4} borderRadius="xl" gap={3}>
+                    <IoIosPeople size={43} color="green" />
+                    <Box>
+                      <Heading as="h4" fontSize="lg" fontFamily="fontBody">
+                        45
+                      </Heading>
+                      <Text fontSize="sm">دانشجو</Text>
+                    </Box>
+                  </HStack>
                   <Spacer />
-                  <Box
-                    bg="gray.200"
-                    paddingX={5}
-                    paddingY={4}
-                    borderRadius="xl"
-                  >
-                    <HStack>
-                      <HiOutlineAcademicCap size={42} color="green" />
-                      <Box>
-                        <Heading as="h4" fontSize="lg" fontFamily="fontBody">
-                          45
-                        </Heading>
-                        <Text fontSize="sm">دانشجو</Text>
-                      </Box>
-                    </HStack>
-                  </Box>
+
+                  <HStack bg="gray.100" padding={4} borderRadius="xl" gap={3}>
+                    <FaStar size={36} color="#fcb900" />
+                    <Box>
+                      <Heading as="h4" fontSize="lg" fontFamily="fontBody">
+                        45
+                      </Heading>
+                      <Text fontSize="sm">دانشجو</Text>
+                    </Box>
+                  </HStack>
                 </Flex>
                 <Flex>
                   <Text>درصد تکمیل دوره</Text>
