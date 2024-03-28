@@ -29,7 +29,7 @@ const SearchInput = () => {
   return (
     <form onSubmit={handleSubmit}>
       <InputGroup borderRadius="3xl" {...border}>
-        <InputLeftElement children={<BsSearch />} />
+        <InputLeftElement cursor="pointer" children={<BsSearch />} />
         <Input
           ref={ref}
           borderRadius={20}
