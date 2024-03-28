@@ -13,7 +13,7 @@ import { IoIosPerson, IoMdTime } from "react-icons/io";
 import { FaStar } from "react-icons/fa";
 import { noImage } from "../../assets";
 import { Link } from "react-router-dom";
-import Toman from "../commpn/Toman";
+import Toman from "../common/Toman";
 
 const CourseCard = () => {
   return (
