@@ -1,4 +1,4 @@
-import { HStack, Switch, Text, useColorMode } from "@chakra-ui/react";
+import { Box, HStack, useColorMode } from "@chakra-ui/react";
 import { BsFillMoonStarsFill } from "react-icons/bs";
 import { MdWbSunny } from "react-icons/md";
 
@@ -7,18 +7,19 @@ const ColorModeSwitch = () => {
 
   return (
     <HStack>
-      <Switch
-        colorScheme="green"
-        isChecked={colorMode === "dark"}
-        onChange={toggleColorMode}
-      />
-      <Text whiteSpace="nowrap">
+      <Box
+        whiteSpace="nowrap"
+        bg="gray.100"
+        borderRadius="3xl"
+        padding={2}
+        onClick={toggleColorMode}
+      >
         {colorMode === "dark" ? (
-          <BsFillMoonStarsFill size={20} />
+          <BsFillMoonStarsFill size={20} color="black" />
         ) : (
-          <MdWbSunny size={20} />
+          <MdWbSunny size={20} color="black" />
         )}
-      </Text>
+      </Box>
     </HStack>
   );
 };

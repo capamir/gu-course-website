@@ -4,6 +4,7 @@ import { logo } from "../../../assets";
 import SearchInput from "./SearchInput";
 import ColorModeSwitch from "./ColorModeSwitch";
 import UserIcon from "./UserIcon";
+import Cart from "./Cart";
 
 const Navbar = () => {
   return (
@@ -18,6 +19,7 @@ const Navbar = () => {
       </Link>
       <SearchInput />
       <ColorModeSwitch />
+      <Cart />
       <UserIcon />
     </HStack>
   );
