@@ -1,4 +1,4 @@
-export { default as Navbar } from "./Navbar/Navbar";
+export { default as Navbar } from "./Navbar";
 
 export { default as CourseHeading } from "./Courses/CourseHeading";
 export { default as CourseGrid } from "./Courses/CourseGrid";

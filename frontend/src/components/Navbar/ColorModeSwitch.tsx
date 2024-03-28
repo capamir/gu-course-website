@@ -2,7 +2,7 @@ import { HStack, Switch, Text, useColorMode } from "@chakra-ui/react";
 import { BsFillMoonStarsFill } from "react-icons/bs";
 import { MdWbSunny } from "react-icons/md";
 
-const ColorModeSitch = () => {
+const ColorModeSwitch = () => {
   const { toggleColorMode, colorMode } = useColorMode();
 
   return (
@@ -23,4 +23,4 @@ const ColorModeSitch = () => {
   );
 };
 
-export default ColorModeSitch;
+export default ColorModeSwitch;
