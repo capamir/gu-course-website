@@ -4,7 +4,7 @@ import { mountStoreDevtool } from "simple-zustand-devtools";
 
 import { DataStoreType } from "./types/Store";
 
-export const useDataStore = create<DataStoreType>(
+export const useDataStore = create<DataStoreType>()(
   persist<DataStoreType>(
     (set) => ({
       bucket: [],
@@ -14,6 +14,7 @@ export const useDataStore = create<DataStoreType>(
             ? { bucket: [...state.bucket, product] }
             : state
         ),
+      clearBucket: () => set(() => ({ bucket: [] })),
     }),
     { name: "store" }
   )
