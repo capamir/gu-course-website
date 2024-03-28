@@ -11,8 +11,20 @@ import {
 import { HiOutlineAcademicCap } from "react-icons/hi2";
 import { noImage } from "../../assets";
 import Toman from "../common/Toman";
+import { useDataStore } from "../../store";
 
 const Bio = () => {
+  const setProduct = useDataStore((s) => s.setProduct);
+  const handleClick = () => {
+    setProduct({
+      id: 2,
+      title: "string",
+      description: "string",
+      price: 300000,
+      available: true,
+      image: "string",
+    });
+  };
   return (
     <Flex
       gap={7}
@@ -40,6 +52,7 @@ const Bio = () => {
             variant="solid"
             borderRadius="3xl"
             size="md"
+            onClick={handleClick}
           >
             ثبت نام در دوره
           </Button>
