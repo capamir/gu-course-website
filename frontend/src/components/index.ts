@@ -7,3 +7,4 @@ export { default as CourseCardContainer } from "./Courses/CourseCardContainer";
 export { default as CourseCard } from "./Courses/CourseCard";
 
 export { default as Toman } from "./common/Toman";
+export { default as Form } from "./common/Form";
