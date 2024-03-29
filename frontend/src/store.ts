@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { mountStoreDevtool } from "simple-zustand-devtools";
 
-import { DataStoreType } from "./types/Store";
+import { AuthStoreType, DataStoreType } from "./types/Store";
 
 export const useDataStore = create<DataStoreType>()(
   persist<DataStoreType>(
@@ -20,6 +20,18 @@ export const useDataStore = create<DataStoreType>()(
   )
 );
 
+export const useAuthStore = create<AuthStoreType>()(
+  persist<AuthStoreType>(
+    (set) => ({
+      user: {},
+      login: (user) => set(() => ({ user })),
+      logout: () => set(() => ({})),
+    }),
+    { name: "auth" }
+  )
+);
+
 if (process.env.NODE_ENV === "development") {
   mountStoreDevtool("store info", useDataStore);
+  mountStoreDevtool("user info", useAuthStore);
 }
