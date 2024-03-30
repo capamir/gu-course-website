@@ -11,7 +11,7 @@ import {
 import { FaTelegram } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-const index = () => {
+const Footer = () => {
   return (
     <Box paddingX="8%" paddingY={10}>
       <SimpleGrid columns={{ sm: 1, md: 2, lg: 3, xl: 4 }} spacing={8}>
@@ -146,4 +146,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Footer;

@@ -1,7 +1,7 @@
 import { Box, useColorMode } from "@chakra-ui/react";
 import { Outlet } from "react-router-dom";
-import { Footer } from "..";
 import Navbar from "./Navbar";
+import Footer from "./Footer";
 
 const Main = () => {
   const { colorMode } = useColorMode();
