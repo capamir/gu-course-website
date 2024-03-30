@@ -5,6 +5,7 @@ import {
   Flex,
   Heading,
   HStack,
+  Progress,
   Spacer,
   Text,
   useColorMode,
@@ -12,13 +13,13 @@ import {
 import { FaStar } from "react-icons/fa";
 import { IoIosPeople } from "react-icons/io";
 
-const Progress = () => {
+const ProgressCard = () => {
   const { colorMode } = useColorMode();
 
   return (
     <Card borderRadius="2xl" boxShadow="md">
       <CardBody>
-        <Flex gap={2} marginBottom={9}>
+        <Flex gap={2} marginBottom={6}>
           <HStack
             bg={colorMode === "dark" ? "" : "gray.100"}
             boxShadow="md"
@@ -52,14 +53,15 @@ const Progress = () => {
             </Box>
           </HStack>
         </Flex>
-        <Flex>
+        <Flex marginY={4}>
           <Text>درصد تکمیل دوره</Text>
           <Spacer />
-          <Text>0%</Text>
+          <Text>45%</Text>
         </Flex>
+        <Progress value={45} hasStripe />
       </CardBody>
     </Card>
   );
 };
 
-export default Progress;
+export default ProgressCard;
