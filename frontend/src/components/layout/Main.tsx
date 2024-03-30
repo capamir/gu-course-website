@@ -1,8 +1,9 @@
 import { Box, useColorMode } from "@chakra-ui/react";
 import { Outlet } from "react-router-dom";
-import { Footer, Navbar } from "../components";
+import { Footer } from "..";
+import Navbar from "./Navbar";
 
-const Layout = () => {
+const Main = () => {
   const { colorMode } = useColorMode();
   return (
     <>
@@ -15,4 +16,4 @@ const Layout = () => {
   );
 };
 
-export default Layout;
+export default Main;

@@ -1,6 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
 import {
-  Layout,
   Home,
   Details,
   Bucket,
@@ -9,12 +8,12 @@ import {
   LoginPhone,
   VerifyCode,
 } from "./pages";
-import Auth from "./components/layout/Auth";
+import { Auth, Main } from "./components/layout";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: <Main />,
     children: [
       { index: true, element: <Home /> },
       { path: ":id", element: <Details /> },
