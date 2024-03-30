@@ -3,7 +3,7 @@ from django.db.models.aggregates import Count
 from django.urls import reverse
 from django.utils.html import format_html, urlencode
 
-from .models import Product, Customer, Order, OrderItem
+from .models import Product, Customer, Order, OrderItem, Chapter, Lesson
 
 # Register your models here.
 class ProductAdmin(admin.ModelAdmin):
@@ -68,8 +68,21 @@ class OrderItemAdmin(admin.ModelAdmin):
     raw_id_fields= ['order', 'product']
 
 
+class ChapterAdmin(admin.ModelAdmin):
+    list_display = ['id', 'title', 'lesson_total']
+    search_fields = ['title']
+
+
+class LessonAdmin(admin.ModelAdmin):
+    list_display = ['id', 'title', 'duration']
+    raw_id_fields= ['chapter']
+    search_fields = ['title']
+
+
 admin.site.register(Product, ProductAdmin)
 
 admin.site.register(Customer, CustomerAdmin)
 admin.site.register(Order, OrderAdmin)
 admin.site.register(OrderItem, OrderItemAdmin)
+admin.site.register(Chapter, ChapterAdmin)
+admin.site.register(Lesson, LessonAdmin)

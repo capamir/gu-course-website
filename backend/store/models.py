@@ -87,6 +87,7 @@ class Order(models.Model):
             ('cancel_order', 'Can cancel order')
         ]
 
+
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.PROTECT)
     product = models.ForeignKey(Product, on_delete=models.PROTECT, related_name='orderitems')
@@ -112,3 +113,30 @@ class Review(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
     date = models.DateField(auto_now_add=True)
+
+
+class Chapter(models.Model):
+    title = models.CharField(max_length=255)
+    lesson_total = models.IntegerField(default=0)
+
+    def __str__(self) -> str:
+        return self.title
+
+    @property
+    def lessons(self):
+        queryset = self.lessons.all()
+        self.lesson_total = queryset.count()
+        return queryset
+    
+    @property
+    def duration_Chapter(self):
+        queryset = self.lessons.all()
+        return sum([lesson.duration for lesson in queryset])
+
+class Lesson(models.Model):
+    chapter = models.ForeignKey(Chapter, on_delete=models.CASCADE, related_name='lessons')
+    title = models.CharField(max_length=255)
+    duration = models.IntegerField(default=0)
+
+    def __str__(self) -> str:
+        return self.title
