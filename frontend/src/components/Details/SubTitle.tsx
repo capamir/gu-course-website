@@ -7,10 +7,13 @@ import {
   SimpleGrid,
   Spacer,
   Text,
+  useColorMode,
 } from "@chakra-ui/react";
 import { HiMiniAcademicCap } from "react-icons/hi2";
 
 const SubTitle = () => {
+  const { colorMode } = useColorMode();
+
   return (
     <Card marginY={6}>
       <CardBody>
@@ -21,7 +24,11 @@ const SubTitle = () => {
           </Heading>
         </HStack>
         <SimpleGrid spacing={6}>
-          <Card borderRadius="xl" bg="gray.50">
+          <Card
+            borderRadius="xl"
+            bg={colorMode === "dark" ? "" : "gray.50"}
+            boxShadow="md"
+          >
             <CardBody>
               <Flex>
                 <Heading as="h4" fontSize="lg" fontFamily="fontBold">

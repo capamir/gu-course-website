@@ -6,12 +6,10 @@ import {
   Flex,
   Heading,
   HStack,
-  SimpleGrid,
   Spacer,
-  Text,
 } from "@chakra-ui/react";
 import { IoCartOutline, IoWalletSharp } from "react-icons/io5";
-import { Toman } from "../components";
+import { Items } from "../components";
 
 const Bucket = () => {
   return (
@@ -37,30 +35,7 @@ const Bucket = () => {
         </Flex>
       </CardHeader>
       <CardBody>
-        <SimpleGrid spacing={6}>
-          <Card borderRadius="xl" bg="gray.50">
-            <CardBody>
-              <Flex gap={5} alignItems="center">
-                <Heading as="h4" fontSize="lg" fontFamily="fontBold">
-                  آموزش داکر
-                </Heading>
-                <Text>مدرس: صادق اسکندری</Text>
-                <Spacer />
-                <HStack marginX="auto" marginBottom={{ base: 4, md: "0" }}>
-                  <Text
-                    color="brand-primary"
-                    fontFamily="fontBold"
-                    fontSize="lg"
-                  >
-                    3,500,000
-                  </Text>
-                  <Toman />
-                </HStack>
-                <Button>حذف</Button>
-              </Flex>
-            </CardBody>
-          </Card>
-        </SimpleGrid>
+        <Items />
       </CardBody>
     </Card>
   );

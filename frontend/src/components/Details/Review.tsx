@@ -11,12 +11,15 @@ import {
   SimpleGrid,
   Spacer,
   Text,
+  useColorMode,
 } from "@chakra-ui/react";
 import { BsChatTextFill, BsReply } from "react-icons/bs";
 import { FaPlusCircle } from "react-icons/fa";
 import { noImage } from "../../assets";
 
 const Review = () => {
+  const { colorMode } = useColorMode();
+
   return (
     <Card marginY={6}>
       <CardBody>
@@ -41,7 +44,11 @@ const Review = () => {
           </Button>
         </Flex>
         <SimpleGrid spacing={6}>
-          <Card borderRadius="xl" bg="gray.50">
+          <Card
+            borderRadius="xl"
+            bg={colorMode === "dark" ? "" : "gray.50"}
+            boxShadow="md"
+          >
             <CardHeader>
               <Flex alignItems="center">
                 <HStack gap={5}>

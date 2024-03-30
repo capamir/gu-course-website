@@ -112,7 +112,7 @@ const index = () => {
             <HStack
               fontFamily="fontBold"
               fontSize="lg"
-              color="gray.700"
+              color="gray"
               marginBottom={3}
             >
               <FaTelegram size={24} color="#0693e3" />
@@ -123,7 +123,7 @@ const index = () => {
             <HStack
               fontFamily="fontBold"
               fontSize="lg"
-              color="gray.700"
+              color="gray"
               marginBottom={3}
             >
               <FaTelegram size={24} color="#0693e3" />
