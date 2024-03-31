@@ -67,10 +67,15 @@ class OrderItemAdmin(admin.ModelAdmin):
     list_display = ['id', 'order', 'product']
     raw_id_fields= ['order', 'product']
 
+class LessonInline(admin.TabularInline):
+    model = Lesson
+    raw_id_fields= ['chapter']
 
 class ChapterAdmin(admin.ModelAdmin):
-    list_display = ['id', 'title', 'lesson_total']
+    list_display = ['id', 'title', ]
+    raw_id_fields = ["product"]
     search_fields = ['title']
+    inlines = (LessonInline,)
 
 
 class LessonAdmin(admin.ModelAdmin):
