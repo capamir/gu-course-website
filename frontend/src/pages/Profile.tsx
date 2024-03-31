@@ -42,7 +42,7 @@ const Profile = () => {
             paddingY={2}
             marginY={3}
             borderRadius="md"
-            bg={tab === "پیشخوان" ? "green" : ""}
+            bg={tab === "پیشخوان" ? "#00d084" : ""}
             onClick={() => setTab("پیشخوان")}
             cursor="pointer"
           >
@@ -55,7 +55,7 @@ const Profile = () => {
             paddingY={2}
             marginY={3}
             borderRadius="md"
-            bg={tab === "دوره ها" ? "green" : ""}
+            bg={tab === "دوره ها" ? "#00d084" : ""}
             cursor="pointer"
             onClick={() => setTab("دوره ها")}
           >
@@ -68,7 +68,7 @@ const Profile = () => {
             paddingY={2}
             marginY={3}
             borderRadius="md"
-            bg={tab === "تیکت ها" ? "green" : ""}
+            bg={tab === "تیکت ها" ? "#00d084" : ""}
             cursor="pointer"
             onClick={() => setTab("تیکت ها")}
           >
@@ -81,7 +81,7 @@ const Profile = () => {
             paddingY={2}
             marginY={3}
             borderRadius="md"
-            bg={tab === "خروج" ? "green" : ""}
+            bg={tab === "خروج" ? "#00d084" : ""}
             cursor="pointer"
             onClick={() => setTab("خروج")}
           >
