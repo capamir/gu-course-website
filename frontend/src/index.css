@@ -28,6 +28,34 @@
     U+41-57, U+61-7A, U+A9, U+E9, U+2013, U+2014, U+2026, U+2AF6, U+1F44B;
 }
 
+@font-face {
+  font-family: "iransans_regular";
+  src: url("./assets/fonts/iransans_regular.woff");
+  font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "iransans_bold";
+  src: url("./assets/fonts/IRANSans.ttf");
+  font-style: normal;
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "iransans_light";
+  src: url("./assets/fonts/iransans.woff");
+  font-style: normal;
+  font-weight: lighter;
+}
+
+@font-face {
+  font-family: "iransans_num";
+  src: url("./assets/fonts/IRANSans\(FaNum\).ttf");
+  font-style: normal;
+  font-weight: normal;
+}
+
 form {
   width: 100%;
 }

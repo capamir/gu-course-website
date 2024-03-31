@@ -7,6 +7,7 @@ import {
   Signup,
   LoginPhone,
   VerifyCode,
+  Profile,
 } from "./pages";
 import { Auth, Main } from "./components/layout";
 
@@ -30,6 +31,7 @@ const router = createBrowserRouter([
       { path: "verify", element: <VerifyCode /> },
     ],
   },
+  { path: "/profile", element: <Profile /> },
 ]);
 
 export default router;

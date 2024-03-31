@@ -1,6 +1,7 @@
 export { default as Home } from "./Home";
 export { default as Details } from "./Details";
 export { default as Bucket } from "./Bucket";
+export { default as Profile } from "./Profile";
 // authorization
 export { default as Login } from "./auth/Login";
 export { default as Signup } from "./auth/Signup";

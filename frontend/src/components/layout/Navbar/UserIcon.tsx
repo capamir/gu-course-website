@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const UserIcon = () => {
   return (
-    <Link to="/login">
+    <Link to="/profile">
       <Box bg="gray.100" borderRadius="3xl" padding={2}>
         <IoPersonOutline size={22} color="black" />
       </Box>

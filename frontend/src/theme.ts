@@ -2,8 +2,10 @@ import { extendTheme } from "@chakra-ui/react";
 
 const fonts = {
   fontHeading: `'iran yekan extra', sans-serif`,
-  fontBold: `'iran yekan bold', sans-serif`,
-  fontBody: `'iran yekan normal', sans-serif`,
+  fontBold: `iransans_bold, sans-serif`,
+  fontBody: `iransans_regular, sans-serif`,
+  fontLight: `iransans_light, sans-serif`,
+  fontNum: `iransans_num, sans-serif`,
 };
 
 const borderRadius = {

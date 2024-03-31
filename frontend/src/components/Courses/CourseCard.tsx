@@ -19,7 +19,7 @@ const CourseCard = () => {
   return (
     <Card boxShadow="xl" borderRadius="3xl">
       <Link to="/2">
-        <Image src={noImage} borderRadius="3xl" />
+        <Image src={noImage} borderRadius="3xl" margin="auto" />
       </Link>
       <CardBody>
         <Link to="/2">
@@ -55,7 +55,7 @@ const CourseCard = () => {
 
           <HStack>
             <IoMdTime />
-            <Text>39:30</Text>
+            <Text fontFamily="fontBody">39:30</Text>
           </HStack>
           <Spacer />
           <HStack>
@@ -71,7 +71,7 @@ const CourseCard = () => {
           </HStack>
           <Spacer width="100%" />
           <HStack>
-            <Text color="brand-primary" fontFamily="fontBold" fontSize="lg">
+            <Text color="brand-primary" fontFamily="fontBody" fontSize="xl">
               3,500,000
             </Text>
             <Toman />
