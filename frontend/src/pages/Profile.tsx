@@ -7,15 +7,21 @@ import {
   GridItem,
   HStack,
   Image,
+  Menu,
+  MenuButton,
+  MenuList,
   Show,
   Spacer,
   Text,
 } from "@chakra-ui/react";
-import { RiMenu3Line } from "react-icons/ri";
+import { useState } from "react";
+import { BiConversation } from "react-icons/bi";
+import { IoFolderOpenOutline, IoHomeOutline } from "react-icons/io5";
+import { RiLogoutBoxRLine, RiMenu3Line } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { logo } from "../assets";
 import ColorModeSwitch from "../components/layout/Navbar/ColorModeSwitch";
-import { useState } from "react";
+import { CustomMenuItem, TabItem } from "../components/Profile";
 
 const Profile = () => {
   const [tab, setTab] = useState("پیشخوان");
@@ -36,58 +42,19 @@ const Profile = () => {
               </Text>
             </HStack>
           </Link>
-          <HStack
-            alignItems="center"
-            paddingX={3}
-            paddingY={2}
-            marginY={3}
-            borderRadius="md"
-            bg={tab === "پیشخوان" ? "#00d084" : ""}
-            onClick={() => setTab("پیشخوان")}
-            cursor="pointer"
-          >
-            <RiMenu3Line size={24} />
-            <Text>پیشخوان</Text>
-          </HStack>
-          <HStack
-            alignItems="center"
-            paddingX={3}
-            paddingY={2}
-            marginY={3}
-            borderRadius="md"
-            bg={tab === "دوره ها" ? "#00d084" : ""}
-            cursor="pointer"
-            onClick={() => setTab("دوره ها")}
-          >
-            <RiMenu3Line size={24} />
-            <Text>دوره ها</Text>
-          </HStack>
-          <HStack
-            alignItems="center"
-            paddingX={3}
-            paddingY={2}
-            marginY={3}
-            borderRadius="md"
-            bg={tab === "تیکت ها" ? "#00d084" : ""}
-            cursor="pointer"
-            onClick={() => setTab("تیکت ها")}
-          >
-            <RiMenu3Line size={24} />
-            <Text>تیکت ها</Text>
-          </HStack>
-          <HStack
-            alignItems="center"
-            paddingX={3}
-            paddingY={2}
-            marginY={3}
-            borderRadius="md"
-            bg={tab === "خروج" ? "#00d084" : ""}
-            cursor="pointer"
-            onClick={() => setTab("خروج")}
-          >
-            <RiMenu3Line size={24} />
-            <Text>خروج</Text>
-          </HStack>
+          <TabItem tab={tab} setTab={setTab} label="پیشخوان">
+            <IoHomeOutline size={24} />
+          </TabItem>
+          <TabItem tab={tab} setTab={setTab} label="دوره ها">
+            <IoFolderOpenOutline size={24} />
+          </TabItem>
+          <TabItem tab={tab} setTab={setTab} label="تیکت ها">
+            <BiConversation size={24} />
+          </TabItem>
+
+          <TabItem tab={tab} setTab={setTab} label="خروج">
+            <RiLogoutBoxRLine size={24} />
+          </TabItem>
         </GridItem>
       </Show>
       <GridItem area="main">
@@ -99,10 +66,28 @@ const Profile = () => {
                   <Text>امیرحسین عزیز خوش آمدی</Text>
                 </Show>
                 <Show below="lg">
-                  <HStack alignItems="center">
-                    <RiMenu3Line size={26} />
-                    <Text>{tab}</Text>
-                  </HStack>
+                  <Menu>
+                    <MenuButton as={Box} cursor="pointer">
+                      <HStack alignItems="center">
+                        <RiMenu3Line size={26} />
+                        <Text>{tab}</Text>
+                      </HStack>
+                    </MenuButton>
+                    <MenuList>
+                      <CustomMenuItem tab={tab} setTab={setTab} label="پیشخوان">
+                        <RiMenu3Line size={24} />
+                      </CustomMenuItem>
+                      <CustomMenuItem tab={tab} setTab={setTab} label="دوره ها">
+                        <IoFolderOpenOutline size={24} />
+                      </CustomMenuItem>
+                      <CustomMenuItem tab={tab} setTab={setTab} label="تیکت ها">
+                        <BiConversation size={24} />
+                      </CustomMenuItem>
+                      <CustomMenuItem tab={tab} setTab={setTab} label="خروج">
+                        <RiLogoutBoxRLine size={24} />
+                      </CustomMenuItem>
+                    </MenuList>
+                  </Menu>
                 </Show>
               </Box>
               <Spacer />
