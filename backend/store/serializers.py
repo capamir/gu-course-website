@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from decimal import Decimal
-from .models import Product, Review, Cart, CartItem, Customer, Order, OrderItem
+from .models import Product, Review, Cart, CartItem, Customer, Order, OrderItem, Chapter, Lesson
+
+
 
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -8,11 +10,23 @@ class ProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ['id', 'title', 'description', 'slug', 'price', 'price_with_tax']
+        fields = ['id', 'title', 'description', 'slug', 'price', 'price_with_tax',]
 
     def calculate_tax(self, product: Product):
         return product.price * Decimal(1.1)
 
+class LessonSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Lesson
+        fields = ['id', 'title'] 
+
+class ChapterSerializer(serializers.ModelSerializer):
+    lessons = LessonSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Chapter
+        fields = ['id', 'title', 'lessons'] 
+    
 
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
@@ -22,6 +36,14 @@ class ReviewSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         product_id = self.context['product_id']
         return Review.objects.create(product_id=product_id, **validated_data)
+
+
+class ProductDetailSerializer(ProductSerializer):
+    chapters = ChapterSerializer(many=True, read_only=True)
+    reviews = ReviewSerializer(many=True, read_only=True)
+
+    class Meta(ProductSerializer.Meta):
+        fields = ProductSerializer.Meta.fields + ['chapters', 'reviews']
 
 
 class SimpleProductSerializer(serializers.ModelSerializer):
@@ -94,6 +116,13 @@ class OrderItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrderItem
         fields = ['id', 'product', 'price']
+
+class OrderSerializer(serializers.ModelSerializer):
+    items = OrderItemSerializer(many=True)
+
+    class Meta:
+        model = Order
+        fields = ['id', 'customer', 'placed_at', 'payment_status', 'items']
 
 
 class UpdateOrderSerializer(serializers.ModelSerializer):

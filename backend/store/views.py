@@ -6,7 +6,7 @@ from rest_framework.permissions import AllowAny, DjangoModelPermissions, DjangoM
 from rest_framework.decorators import action, permission_classes
 from rest_framework import status
 from .models import Product, Review, Cart, CartItem, Customer, Order, OrderItem
-from .serializers import ProductSerializer, ReviewSerializer, CartSerializer, CartItemSerializer, AddCartItemSerializer, CustomerSerializer
+from .serializers import ProductSerializer, ProductDetailSerializer, ReviewSerializer, CartSerializer, CartItemSerializer, AddCartItemSerializer, CustomerSerializer
 from .permissions import FullDjangoModelPermissions, IsAdminOrReadOnly, ViewCustomerHistoryPermission
 
 # Create your views here.
@@ -15,6 +15,14 @@ class ProductViewSet(ModelViewSet):
     serializer_class = ProductSerializer
     search_fields = ['title', 'description']
     ordering_fields = ['price', 'updated']
+
+    def get_serializer_class(self):
+        if self.action == 'retrieve':
+            # Use ProductDetailSerializer for listing and retrieving individual instances
+            return ProductDetailSerializer
+        else:
+            # Use default ProductSerializer for other actions (create, update, partial_update)
+            return ProductSerializer
 
     def get_serializer_context(self):
         return {'request': self.request}
