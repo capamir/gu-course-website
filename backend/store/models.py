@@ -12,6 +12,7 @@ class Promotion(models.Model):
 class Product(models.Model):
     title = models.CharField(max_length=255)
     slug = models.SlugField()
+    bio = models.TextField(null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     price = models.IntegerField()
     available = models.BooleanField(default=True)
@@ -116,6 +117,7 @@ class Review(models.Model):
 
 
 class Chapter(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='chapters')
     title = models.CharField(max_length=255)
     lesson_total = models.IntegerField(default=0)
 
