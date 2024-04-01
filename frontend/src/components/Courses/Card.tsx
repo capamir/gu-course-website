@@ -20,14 +20,14 @@ interface Props {
 }
 
 const CourseCard: React.FC<Props> = ({ course }) => {
-  const { title, bio, price, image } = course;
+  const { id, title, bio, price, image } = course;
   return (
     <Card boxShadow="xl" borderRadius="3xl">
-      <Link to="/2">
+      <Link to={`/${id}`}>
         <Image src={image} borderRadius="3xl" margin="auto" />
       </Link>
       <CardBody>
-        <Link to="/2">
+        <Link to={`/${id}`}>
           <Heading
             as="h2"
             fontSize="2xl"
