@@ -1,5 +1,5 @@
 import { LoginResponse } from "./Auth";
-import { ProductType } from "./Courses";
+import { ProductType } from "./Product";
 
 export interface DataStoreType {
   bucket: ProductType[];
