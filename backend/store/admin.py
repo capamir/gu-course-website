@@ -72,10 +72,11 @@ class LessonInline(admin.TabularInline):
     raw_id_fields= ['chapter']
 
 class ChapterAdmin(admin.ModelAdmin):
-    list_display = ['id', 'title', ]
+    list_display = ['id', 'title', 'lesson_total']
     raw_id_fields = ["product"]
     search_fields = ['title']
     inlines = (LessonInline,)
+    readonly_fields = ['lesson_total','duration_Chapter',]
 
 
 class LessonAdmin(admin.ModelAdmin):

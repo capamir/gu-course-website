@@ -127,7 +127,6 @@ class Chapter(models.Model):
     @property
     def lessons(self):
         queryset = self.lessons.all()
-        self.lesson_total = queryset.count()
         return queryset
     
     @property
