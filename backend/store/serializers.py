@@ -10,7 +10,7 @@ class ProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ['id', 'title', 'description', 'slug', 'price', 'price_with_tax',]
+        fields = ['id', 'title', 'bio', 'description', 'slug', 'price', 'price_with_tax', 'image']
 
     def calculate_tax(self, product: Product):
         return product.price * Decimal(1.1)
