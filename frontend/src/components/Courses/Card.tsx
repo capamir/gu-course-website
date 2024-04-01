@@ -8,18 +8,23 @@ import {
   Spacer,
   Text,
 } from "@chakra-ui/react";
-import { IoPersonSharp } from "react-icons/io5";
-import { IoIosPerson, IoMdTime } from "react-icons/io";
 import { FaStar } from "react-icons/fa";
-import { noImage } from "../../assets";
+import { IoIosPerson, IoMdTime } from "react-icons/io";
+import { IoPersonSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
+import { ProductType } from "../../types/Product";
 import Toman from "../common/Toman";
 
-const CourseCard = () => {
+interface Props {
+  course: ProductType;
+}
+
+const CourseCard: React.FC<Props> = ({ course }) => {
+  const { title, bio, price, image } = course;
   return (
     <Card boxShadow="xl" borderRadius="3xl">
       <Link to="/2">
-        <Image src={noImage} borderRadius="3xl" margin="auto" />
+        <Image src={image} borderRadius="3xl" margin="auto" />
       </Link>
       <CardBody>
         <Link to="/2">
@@ -29,7 +34,7 @@ const CourseCard = () => {
             fontFamily="fontBold"
             marginBottom={4}
           >
-            آموزش شبکه عصبی
+            {title}
           </Heading>
         </Link>
         <Text
@@ -38,7 +43,7 @@ const CourseCard = () => {
           color="gray"
           paddingBottom={6}
         >
-          همه میدونیم که هوش مصنوعی چقدر مورد توجه قرار گرفته
+          {bio}
         </Text>
         <Flex
           minWidth="max-content"
@@ -72,7 +77,7 @@ const CourseCard = () => {
           <Spacer width="100%" />
           <HStack>
             <Text color="brand-primary" fontFamily="fontBody" fontSize="xl">
-              3,500,000
+              {price}
             </Text>
             <Toman />
           </HStack>
