@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:8000/api",
+  baseURL: "http://localhost:8000/",
 });
 
 export class APIClient<T> {
@@ -25,7 +25,7 @@ export class APIClient<T> {
 }
 
 const authInstance = axios.create({
-  baseURL: "http://localhost:8000/api",
+  baseURL: "http://localhost:8000/",
 });
 
 export class AuthAPIClient<T> {
