@@ -3,14 +3,12 @@ from decimal import Decimal
 from .models import Product, Review, Cart, CartItem, Customer, Order, OrderItem, Chapter, Lesson
 
 
-
-
 class ProductSerializer(serializers.ModelSerializer):
     price_with_tax = serializers.SerializerMethodField(method_name='calculate_tax')
 
     class Meta:
         model = Product
-        fields = ['id', 'title', 'bio', 'description', 'slug', 'price', 'price_with_tax', 'image']
+        fields = ['id', 'title', 'bio', 'description', 'slug', 'price', 'price_with_tax', 'image', 'available']
 
     def calculate_tax(self, product: Product):
         return product.price * Decimal(1.1)
