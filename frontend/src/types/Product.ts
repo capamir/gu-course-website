@@ -5,19 +5,23 @@ export interface ProductType {
   description: string;
   price: number;
   image: string;
+  available: boolean;
   chapters?: ChapterType[];
   reviews?: ReviewType[];
 }
 
-interface ChapterType {
+export interface ChapterType {
   id: number;
   title: string;
+  duration_Chapter: number;
+  lesson_total: number;
   lessons?: LessonType[];
 }
 
-interface LessonType {
+export interface LessonType {
   id: number;
   title: string;
+  duration: number;
 }
 
 interface ReviewType {

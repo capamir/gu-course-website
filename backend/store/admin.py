@@ -3,9 +3,17 @@ from django.db.models.aggregates import Count
 from django.urls import reverse
 from django.utils.html import format_html, urlencode
 
-from .models import Product, Customer, Order, OrderItem, Chapter, Lesson
+from .models import Product, Customer, Order, OrderItem, Chapter, Lesson, Review, Teacher, Details
 
 # Register your models here.
+class ChapterInline(admin.TabularInline):
+    model = Chapter
+    raw_id_fields= ['product']
+
+class DetailsInline(admin.TabularInline):
+    model = Details
+    raw_id_fields= ['product']
+
 class ProductAdmin(admin.ModelAdmin):
     prepopulated_fields = {
         'slug': ['title']
@@ -17,6 +25,7 @@ class ProductAdmin(admin.ModelAdmin):
     search_fields = ['title']
     raw_id_fields = ['promotions']
     readonly_fields = ['thumbnail']
+    inlines = (ChapterInline, DetailsInline,)
 
     def thumbnail(self, instance):
         if instance.image.name != '':
@@ -85,10 +94,38 @@ class LessonAdmin(admin.ModelAdmin):
     search_fields = ['title']
 
 
-admin.site.register(Product, ProductAdmin)
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ['id', 'name', 'rate', 'date']
+    raw_id_fields= ['product']
+    search_fields = ['name']
+    list_filter = ["rate", 'date']
 
+
+class TeacherAdmin(admin.ModelAdmin):
+    list_display = ['id', 'name']
+    raw_id_fields= ['product']
+    search_fields = ['name']
+    readonly_fields = ['thumbnail']
+
+    def thumbnail(self, instance):
+        if instance.image.name != '':
+            return format_html(f'<img src="{instance.image.url}" class="thumbnail" />')
+        return ''
+
+
+class DetailsAdmin(admin.ModelAdmin):
+    list_display = ['product', 'status', 'duration', 'support']
+    raw_id_fields= ['product']
+    list_filter = ['status',]
+    readonly_fields = ['duration']
+
+
+admin.site.register(Product, ProductAdmin)
+admin.site.register(Review, ReviewAdmin)
 admin.site.register(Customer, CustomerAdmin)
 admin.site.register(Order, OrderAdmin)
 admin.site.register(OrderItem, OrderItemAdmin)
 admin.site.register(Chapter, ChapterAdmin)
 admin.site.register(Lesson, LessonAdmin)
+admin.site.register(Teacher, TeacherAdmin)
+admin.site.register(Details, DetailsAdmin)

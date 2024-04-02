@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.contrib import admin
+from django.core.validators import MaxValueValidator, MinValueValidator 
 from uuid import uuid4
 
 # Create your models here.
@@ -30,6 +31,32 @@ class Product(models.Model):
     def reviewers(self):
         queryset = self.reviews.all()
         return queryset
+
+
+class Details(models.Model):
+    STATUS_A = "A"
+    STATUS_B = "B"
+    STATUS_C = "c"
+
+    STATUS_CHOICES = [
+        (STATUS_A, "پیش فروش"),
+        (STATUS_B, "در حال ضبط"),
+        (STATUS_C, "پایان ضبط"),
+    ]
+
+    product = models.OneToOneField(Product, on_delete=models.CASCADE)
+    status = models.CharField(max_length=1, choices=STATUS_CHOICES, default=STATUS_A)
+    duration_hours = models.PositiveIntegerField(default=0)
+    duration_minutes = models.PositiveIntegerField(default=0)
+    support = models.CharField(max_length=255, default="آنلاین")
+
+    @property
+    def duration(self):
+        return f"{self.duration_hours} : {self.duration_minutes}"
+
+    def __str__(self):
+        return f"Course: {self.product}"
+
 
 
 class Customer(models.Model):
@@ -111,6 +138,7 @@ class CartItem(models.Model):
 
 class Review(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews')
+    rate = models.PositiveIntegerField(default=5, validators=[MinValueValidator(1), MaxValueValidator(5)])
     name = models.CharField(max_length=255)
     description = models.TextField()
     date = models.DateField(auto_now_add=True)
@@ -141,3 +169,12 @@ class Lesson(models.Model):
 
     def __str__(self) -> str:
         return self.title
+
+
+class Teacher(models.Model):
+    product = models.ManyToManyField(Product, related_name='teachers')
+    name = models.CharField(max_length=255)
+    image = models.ImageField(null=True, blank=True, default="default.jpg")
+
+    def __str__(self) -> str:
+        return self.name
