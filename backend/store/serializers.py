@@ -180,8 +180,7 @@ class CreateOrderSerializer(serializers.Serializer):
                 OrderItem(
                     order=order,
                     product=item.product,
-                    unit_price=item.product.unit_price,
-                    quantity=item.quantity
+                    price=item.product.price,
                 ) for item in cart_items
             ]
             OrderItem.objects.bulk_create(order_items)
