@@ -49,6 +49,7 @@ class Details(models.Model):
     duration_hours = models.PositiveIntegerField(default=0)
     duration_minutes = models.PositiveIntegerField(default=0)
     support = models.CharField(max_length=255, default="آنلاین")
+    progress = models.PositiveIntegerField(default=0)
 
     @property
     def duration(self):
@@ -174,6 +175,7 @@ class Lesson(models.Model):
 class Teacher(models.Model):
     product = models.ManyToManyField(Product, related_name='teachers')
     name = models.CharField(max_length=255)
+    title = models.CharField(max_length=255, null=True, blank=True)
     image = models.ImageField(null=True, blank=True, default="default.jpg")
 
     def __str__(self) -> str:

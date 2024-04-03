@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from decimal import Decimal
-from .models import Product, Review, Cart, CartItem, Customer, Order, OrderItem, Chapter, Lesson, Teacher
+from .models import Product, Review, Cart, CartItem, Customer, Order, OrderItem, Chapter, Lesson, Teacher, Details
 
 
 class TeacherSerializer(serializers.ModelSerializer):
@@ -57,12 +57,19 @@ class ReviewSerializer(serializers.ModelSerializer):
         return Review.objects.create(product_id=product_id, **validated_data)
 
 
+class DetailsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Details
+        fields = ['product', 'status', 'duration', 'support'] 
+
+
 class ProductDetailSerializer(ProductSerializer):
     chapters = ChapterSerializer(many=True, read_only=True)
     reviews = ReviewSerializer(many=True, read_only=True)
+    details = DetailsSerializer(many=False, read_only=True)
 
     class Meta(ProductSerializer.Meta):
-        fields = ProductSerializer.Meta.fields + ['chapters', 'reviews']
+        fields = ProductSerializer.Meta.fields + ['chapters', 'reviews', 'details']
 
 
 class SimpleProductSerializer(serializers.ModelSerializer):
