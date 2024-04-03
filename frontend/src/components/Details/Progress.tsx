@@ -13,7 +13,13 @@ import {
 import { FaStar } from "react-icons/fa";
 import { IoIosPeople } from "react-icons/io";
 
-const ProgressCard = () => {
+interface Props {
+  students: number;
+  rate: number;
+  progress: number | undefined;
+}
+
+const ProgressCard: React.FC<Props> = ({ students, rate, progress }) => {
   const { colorMode } = useColorMode();
 
   return (
@@ -30,7 +36,7 @@ const ProgressCard = () => {
             <IoIosPeople size={43} color="green" />
             <Box>
               <Heading as="h4" fontSize="lg" fontFamily="fontBody">
-                45
+                {students}
               </Heading>
               <Text fontSize="sm">دانشجو</Text>
             </Box>
@@ -47,18 +53,18 @@ const ProgressCard = () => {
             <FaStar size={36} color="#fcb900" />
             <Box>
               <Heading as="h4" fontSize="lg" fontFamily="fontBody">
-                45
+                {rate}
               </Heading>
-              <Text fontSize="sm">دانشجو</Text>
+              <Text fontSize="sm">رضایت</Text>
             </Box>
           </HStack>
         </Flex>
         <Flex marginY={4}>
           <Text>درصد تکمیل دوره</Text>
           <Spacer />
-          <Text>45%</Text>
+          <Text>{progress}%</Text>
         </Flex>
-        <Progress value={45} hasStripe />
+        <Progress value={progress} hasStripe />
       </CardBody>
     </Card>
   );
