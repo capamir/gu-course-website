@@ -32,7 +32,13 @@ const Chapter: React.FC<Props> = ({ chapter }) => {
     >
       <CardBody>
         <Flex alignItems="center">
-          <Heading as="h4" fontSize="lg" fontFamily="fontBold">
+          <Heading
+            as="h4"
+            fontSize="lg"
+            fontFamily="fontBold"
+            onClick={onToggle}
+            cursor="pointer"
+          >
             {title}
           </Heading>
           <Spacer />
@@ -42,7 +48,9 @@ const Chapter: React.FC<Props> = ({ chapter }) => {
             <span>{duration_Chapter} </span>
             دقیقه
           </Text>
-          <HiMiniAcademicCap onClick={onToggle} />
+          <Box marginX={2} cursor="pointer">
+            <HiMiniAcademicCap onClick={onToggle} size={19} />
+          </Box>
         </Flex>
         <Collapse in={isOpen} animateOpacity>
           <Box mt={4}>
