@@ -8,6 +8,11 @@ export interface ProductType {
   available: boolean;
   chapters?: ChapterType[];
   reviews?: ReviewType[];
+  details?: DetailsType;
+  updated: string;
+  members_count: number;
+  rate: number;
+  teachers?: TeacherType[];
 }
 
 export interface ChapterType {
@@ -28,4 +33,19 @@ interface ReviewType {
   id: number;
   name: string;
   description: string;
+}
+
+export interface DetailsType {
+  progress: number;
+  status: string;
+  duration: string;
+  support: string;
+  requirement: string;
+}
+
+export interface TeacherType {
+  id: number;
+  name: string;
+  title: string;
+  image: string;
 }
