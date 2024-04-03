@@ -5,6 +5,7 @@ import {
   Flex,
   Heading,
   HStack,
+  Image,
   Spacer,
   Text,
   useColorMode,
@@ -31,6 +32,7 @@ const CartItems: React.FC<Props> = ({ item }) => {
     >
       <CardBody>
         <Flex gap={5} alignItems="center">
+          <Image src={item.image} width={100} alt={item.title} />
           <Heading as="h4" fontSize="md" fontFamily="fontBold">
             {item.title}
           </Heading>

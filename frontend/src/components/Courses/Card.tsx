@@ -9,7 +9,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { FaStar } from "react-icons/fa";
-import { IoIosPerson, IoMdTime } from "react-icons/io";
+import { IoIosPerson } from "react-icons/io";
 import { IoPersonSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { ProductType } from "../../types/Product";
@@ -20,7 +20,8 @@ interface Props {
 }
 
 const CourseCard: React.FC<Props> = ({ course }) => {
-  const { id, title, bio, price, image } = course;
+  const { id, title, bio, price, image, rate, members_count, teachers } =
+    course;
   return (
     <Card boxShadow="xl" borderRadius="3xl">
       <Link to={`/${id}`}>
@@ -55,16 +56,11 @@ const CourseCard: React.FC<Props> = ({ course }) => {
         >
           <HStack marginLeft={2}>
             <IoIosPerson size={18} />
-            <Text>صادق اسکندری</Text>
-          </HStack>
-
-          <HStack>
-            <IoMdTime />
-            <Text fontFamily="fontBody">39:30</Text>
+            <Text>{teachers.at(0)?.name}</Text>
           </HStack>
           <Spacer />
-          <HStack>
-            <Text color="#fcb900">5.0</Text>
+          <HStack alignItems="center">
+            <Text color="#fcb900">{rate}</Text>
             <FaStar color="#fcb900" size={16} />
           </HStack>
         </Flex>
@@ -72,7 +68,7 @@ const CourseCard: React.FC<Props> = ({ course }) => {
         <Flex minWidth="max-content" alignItems="center">
           <HStack fontFamily="fontBody">
             <IoPersonSharp />
-            <Text>147</Text>
+            <Text>{members_count}</Text>
           </HStack>
           <Spacer width="100%" />
           <HStack>

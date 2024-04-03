@@ -19,11 +19,11 @@ interface Props {
 }
 
 const Bio: React.FC<Props> = ({ course }) => {
-  const { id, title, bio, price } = course;
+  const { id, title, bio, price, image } = course;
   const setProduct = useDataStore((s) => s.setProduct);
 
   const handleClick = () => {
-    setProduct({ id, title, price });
+    setProduct({ id, title, price, image });
   };
 
   return (

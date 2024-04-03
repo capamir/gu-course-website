@@ -12,7 +12,7 @@ export interface ProductType {
   updated: string;
   members_count: number;
   rate: number;
-  teachers?: TeacherType[];
+  teachers: TeacherType[];
 }
 
 export interface ChapterType {
