@@ -22,6 +22,7 @@ export class APIClient<T> {
   post = (data: T) => {
     return axiosInstance.post<T>(this.endpoint, data).then((res) => res.data);
   };
+  delete = (id: number) => axiosInstance.delete<T>(this.endpoint + `${id}/`);
 }
 
 const authInstance = axios.create({

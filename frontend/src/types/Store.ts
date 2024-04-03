@@ -8,6 +8,7 @@ export interface DataStoreType {
   clearCartId: () => void;
   setProduct: (product: StoreCartItemType) => void;
   removeProduct: (id: number) => void;
+  updateProduct: (cart_id: number, product_id: number) => void;
   clearBucket: () => void;
 }
 

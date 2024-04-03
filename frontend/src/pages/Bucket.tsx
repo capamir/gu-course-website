@@ -39,7 +39,7 @@ const Bucket = () => {
       </CardHeader>
       <CardBody>
         {bucket.map((item) => (
-          <CartItems key={item.id} item={item} />
+          <CartItems key={item.product_id} item={item} />
         ))}
       </CardBody>
     </Card>

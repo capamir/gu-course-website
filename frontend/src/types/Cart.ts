@@ -1,5 +1,6 @@
 export interface StoreCartItemType {
-  id: number;
+  id?: number;
+  product_id: number;
   title: string;
   price: number;
   image: string;

@@ -40,8 +40,8 @@ const Bio: React.FC<Props> = ({ course }) => {
         console.log(e);
       }
     }
+    setProduct({ product_id: id, title, price, image });
     mutate({ product_id: id });
-    setProduct({ id, title, price, image });
   };
   useEffect(() => {}, []);
   return (

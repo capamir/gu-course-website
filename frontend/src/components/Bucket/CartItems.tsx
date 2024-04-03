@@ -14,6 +14,7 @@ import Toman from "../common/Toman";
 import { StoreCartItemType } from "../../types/Cart";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useDataStore } from "../../store";
+import { useRemoveCartItem } from "../../hooks/useCart";
 
 interface Props {
   item: StoreCartItemType;
@@ -21,8 +22,13 @@ interface Props {
 
 const CartItems: React.FC<Props> = ({ item }) => {
   const { colorMode } = useColorMode();
+  const { mutate } = useRemoveCartItem();
   const removeProduct = useDataStore((s) => s.removeProduct);
 
+  const handleClick = () => {
+    mutate(item.id);
+    removeProduct(item.id);
+  };
   return (
     <Card
       borderRadius="xl"
@@ -46,7 +52,7 @@ const CartItems: React.FC<Props> = ({ item }) => {
           <Button
             colorScheme="red"
             leftIcon={<RiDeleteBin6Line size={18} />}
-            onClick={() => removeProduct(item.id)}
+            onClick={handleClick}
           >
             حذف
           </Button>
