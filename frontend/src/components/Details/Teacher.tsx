@@ -1,19 +1,23 @@
+import React from "react";
 import { Card, CardBody, Flex, Heading, Image, Text } from "@chakra-ui/react";
-import { noImage } from "../../assets";
+import { TeacherType } from "../../types/Product";
 
-const Teacher = () => {
+interface Props {
+  info: TeacherType;
+}
+
+const Teacher: React.FC<Props> = ({ info }) => {
   return (
     <Card borderRadius="2xl" boxShadow="lg" marginY={7}>
       <CardBody>
         <Flex direction="column" alignItems="center" gap={3} paddingY={2}>
-          <Image src={noImage} borderRadius="50%" width={100} height={100} />
+          <Image src={info.image} borderRadius="50%" width={100} height={100} />
           <Heading as="h3" fontFamily="fontBody" fontSize="lg">
-            صادق اسکندری
+            {info.name}
           </Heading>
           <Text fontFamily="fontBody" fontSize="md">
-            مدرس دامشگاه گیلان
+            {info.title}
           </Text>
-          {/* <Button colorScheme="green" variant="outline"></Button> */}
         </Flex>
       </CardBody>
     </Card>
