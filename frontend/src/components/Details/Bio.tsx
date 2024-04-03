@@ -13,6 +13,10 @@ import { noImage } from "../../assets";
 import Toman from "../common/Toman";
 import { useDataStore } from "../../store";
 import { ProductType } from "../../types/Product";
+import { useEffect } from "react";
+import { axiosInstance } from "../../services/apiClient";
+import { CartType } from "../../types/Cart";
+import { useAddCartItem } from "../../hooks/useCart";
 
 interface Props {
   course: ProductType;
@@ -20,12 +24,26 @@ interface Props {
 
 const Bio: React.FC<Props> = ({ course }) => {
   const { id, title, bio, price, image } = course;
+  const cart_id = useDataStore((s) => s.cart_id);
   const setProduct = useDataStore((s) => s.setProduct);
+  const setCartId = useDataStore((s) => s.setCartId);
+  const { mutate } = useAddCartItem();
 
-  const handleClick = () => {
+  const handleClick = async () => {
+    if (!cart_id) {
+      try {
+        const cartResponseData = await axiosInstance
+          .post<CartType>("store/carts/")
+          .then((res) => res.data);
+        setCartId(cartResponseData.id);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    mutate({ product_id: id });
     setProduct({ id, title, price, image });
   };
-
+  useEffect(() => {}, []);
   return (
     <Flex
       gap={7}
