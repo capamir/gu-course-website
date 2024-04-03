@@ -60,7 +60,7 @@ class ReviewSerializer(serializers.ModelSerializer):
 class DetailsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Details
-        fields = ['product', 'status', 'duration', 'support'] 
+        fields = ['product', 'status', 'progress', 'duration', 'support'] 
 
 
 class ProductDetailSerializer(ProductSerializer):
