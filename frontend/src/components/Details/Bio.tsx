@@ -12,19 +12,20 @@ import { HiOutlineAcademicCap } from "react-icons/hi2";
 import { noImage } from "../../assets";
 import Toman from "../common/Toman";
 import { useDataStore } from "../../store";
+import { ProductType } from "../../types/Product";
 
-const Bio = () => {
+interface Props {
+  course: ProductType;
+}
+
+const Bio: React.FC<Props> = ({ course }) => {
+  const { title, bio, price } = course;
   const setProduct = useDataStore((s) => s.setProduct);
+
   const handleClick = () => {
-    setProduct({
-      id: 2,
-      title: "string",
-      description: "string",
-      price: 300000,
-      available: true,
-      image: "string",
-    });
+    setProduct(course);
   };
+
   return (
     <Flex
       gap={7}
@@ -34,12 +35,10 @@ const Bio = () => {
     >
       <Box flex="1">
         <Heading as="h1" marginY={5} fontSize="2xl" fontFamily="fontBold">
-          آموزش Docker از صفر مطلق!
+          {title}
         </Heading>
         <Text fontFamily="fontBody" fontSize="lg">
-          داکر یک پلتفرم متن باز برای طراحی؛ انتقال؛ استقرار و اجرای نرم افزار
-          ها تحت مفهومی به نام Container می‌باشد، در این دوره به صورت تخصصی
-          مفاهیم و مباحث داکر را فرا خواهیم گرفت.
+          {bio}
         </Text>
         <Flex
           paddingLeft={3}
@@ -59,7 +58,7 @@ const Bio = () => {
           <Spacer />
           <HStack marginX="auto" marginBottom={{ base: 4, md: "0" }}>
             <Text color="brand-primary" fontFamily="fontBold" fontSize="lg">
-              3,500,000
+              {price}
             </Text>
             <Toman />
           </HStack>
