@@ -9,9 +9,12 @@ import {
   Spacer,
 } from "@chakra-ui/react";
 import { IoCartOutline, IoWalletSharp } from "react-icons/io5";
-import { Items } from "../components";
+import { useDataStore } from "../store";
+import { CartItems } from "../components";
 
 const Bucket = () => {
+  const bucket = useDataStore((s) => s.bucket);
+
   return (
     <Card marginY={6}>
       <CardHeader>
@@ -35,7 +38,9 @@ const Bucket = () => {
         </Flex>
       </CardHeader>
       <CardBody>
-        <Items />
+        {bucket.map((item) => (
+          <CartItems key={item.id} item={item} />
+        ))}
       </CardBody>
     </Card>
   );

@@ -1,9 +1,10 @@
 import { LoginResponse } from "./Auth";
-import { ProductType } from "./Product";
+import { StoreCartItemType } from "./Cart";
 
 export interface DataStoreType {
-  bucket: ProductType[];
-  setProduct: (product: ProductType) => void;
+  bucket: StoreCartItemType[];
+  setProduct: (product: StoreCartItemType) => void;
+  removeProduct: (id: number) => void;
   clearBucket: () => void;
 }
 

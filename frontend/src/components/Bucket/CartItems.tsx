@@ -10,30 +10,44 @@ import {
   useColorMode,
 } from "@chakra-ui/react";
 import Toman from "../common/Toman";
+import { StoreCartItemType } from "../../types/Cart";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { useDataStore } from "../../store";
 
-const CartItems = () => {
+interface Props {
+  item: StoreCartItemType;
+}
+
+const CartItems: React.FC<Props> = ({ item }) => {
   const { colorMode } = useColorMode();
+  const removeProduct = useDataStore((s) => s.removeProduct);
 
   return (
     <Card
       borderRadius="xl"
       bg={colorMode === "dark" ? "" : "gray.50"}
       boxShadow="md"
+      marginBottom={3}
     >
       <CardBody>
         <Flex gap={5} alignItems="center">
-          <Heading as="h4" fontSize="lg" fontFamily="fontBold">
-            آموزش داکر
+          <Heading as="h4" fontSize="md" fontFamily="fontBold">
+            {item.title}
           </Heading>
-          <Text>مدرس: صادق اسکندری</Text>
           <Spacer />
-          <HStack marginX="auto" marginBottom={{ base: 4, md: "0" }}>
-            <Text color="brand-primary" fontFamily="fontBold" fontSize="lg">
-              3,500,000
+          <HStack marginX="auto">
+            <Text color="brand-primary" fontFamily="fontBold" fontSize="md">
+              {item.price}
             </Text>
             <Toman />
           </HStack>
-          <Button>حذف</Button>
+          <Button
+            colorScheme="red"
+            leftIcon={<RiDeleteBin6Line size={18} />}
+            onClick={() => removeProduct(item.id)}
+          >
+            حذف
+          </Button>
         </Flex>
       </CardBody>
     </Card>

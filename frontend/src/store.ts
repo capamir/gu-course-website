@@ -14,6 +14,8 @@ export const useDataStore = create<DataStoreType>()(
             ? { bucket: [...state.bucket, product] }
             : state
         ),
+      removeProduct: (id) =>
+        set((state) => ({ bucket: state.bucket.filter((p) => p.id !== id) })),
       clearBucket: () => set(() => ({ bucket: [] })),
     }),
     { name: "store" }
