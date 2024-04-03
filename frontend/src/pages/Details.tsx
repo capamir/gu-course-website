@@ -7,8 +7,8 @@ import {
   Review,
   Status,
   SubTitle,
-  Teacher,
 } from "../components/Details";
+import Teachers from "../components/Details/Teachers";
 import { useProduct } from "../hooks";
 
 const Details = () => {
@@ -27,15 +27,19 @@ const Details = () => {
             gap={6}
           >
             <GridItem>
-              <Status />
+              <Status details={course.details!} updated={course.updated} />
               <Description description={course.description} />
               <SubTitle chapters={course.chapters!} />
               <Review />
             </GridItem>
             <Show above="lg">
               <GridItem area="aside">
-                <Progress />
-                <Teacher />
+                <Progress
+                  students={course.members_count}
+                  rate={course.rate}
+                  progress={course.details?.progress}
+                />
+                <Teachers teachers={course.teachers!} />
               </GridItem>
             </Show>
           </Grid>
