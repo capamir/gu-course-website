@@ -55,7 +55,7 @@ const Chapter: React.FC<Props> = ({ chapter }) => {
         <Collapse in={isOpen} animateOpacity>
           <Box mt={4}>
             {lessons?.map((lesson) => (
-              <Lesson lesson={lesson} />
+              <Lesson key={lesson.id} lesson={lesson} />
             ))}
           </Box>
         </Collapse>

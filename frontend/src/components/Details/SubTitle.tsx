@@ -19,7 +19,7 @@ const SubTitle: React.FC<Props> = ({ chapters }) => {
         </HStack>
         <SimpleGrid spacing={6}>
           {chapters.map((chapter) => (
-            <Chapter chapter={chapter} />
+            <Chapter key={chapter.id} chapter={chapter} />
           ))}
         </SimpleGrid>
       </CardBody>

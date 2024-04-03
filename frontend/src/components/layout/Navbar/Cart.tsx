@@ -22,7 +22,7 @@ const Cart = () => {
       </MenuButton>
       <MenuList>
         {bucket.map((item) => (
-          <CustomCartMenuItem item={item} />
+          <CustomCartMenuItem key={item.id} item={item} />
         ))}
         <Link to="/cart">
           <HStack
