@@ -10,8 +10,24 @@ import {
 import { BsBackpack2, BsCameraReels, BsInfoCircle } from "react-icons/bs";
 import { IoCalendarOutline, IoPeopleOutline } from "react-icons/io5";
 import { LuClock4 } from "react-icons/lu";
+import { DetailsType } from "../../types/Product";
 
-const Status = () => {
+interface Props {
+  details: DetailsType;
+  updated: string;
+}
+
+interface StateType {
+  [key: string]: string;
+}
+const statusState: StateType = {
+  A: "پیش فروش",
+  B: "در حال ضبط",
+  C: "اتمام ضبط",
+};
+
+const Status: React.FC<Props> = ({ details, updated }) => {
+  const { status, duration, support, requirement } = details;
   return (
     <SimpleGrid columns={{ sm: 2, md: 2, lg: 3, xl: 3 }} spacing={6}>
       <Card borderRadius="xl" boxShadow="lg">
@@ -22,7 +38,7 @@ const Status = () => {
               <Heading as="h4" fontSize="md" fontFamily="fontBold">
                 وضعیت دوره
               </Heading>
-              <Text>16 ساعت</Text>
+              <Text>{statusState[status]}</Text>
             </Box>
           </HStack>
         </CardBody>
@@ -33,9 +49,11 @@ const Status = () => {
             <LuClock4 size={36} color="green" />
             <Box>
               <Heading as="h4" fontSize="md" fontFamily="fontBold">
-                وضعیت دوره
+                مدت زمان دوره
               </Heading>
-              <Text>16 ساعت</Text>
+              <Text>
+                <span dir="ltr">{duration}</span> ساعت
+              </Text>
             </Box>
           </HStack>
         </CardBody>
@@ -46,9 +64,9 @@ const Status = () => {
             <IoCalendarOutline size={36} color="green" />
             <Box>
               <Heading as="h4" fontSize="md" fontFamily="fontBold">
-                وضعیت دوره
+                آخرین آپدیت
               </Heading>
-              <Text>16 ساعت</Text>
+              <Text>{updated}</Text>
             </Box>
           </HStack>
         </CardBody>
@@ -59,9 +77,9 @@ const Status = () => {
             <IoPeopleOutline size={36} color="green" />
             <Box>
               <Heading as="h4" fontSize="md" fontFamily="fontBold">
-                وضعیت دوره
+                روش پشتیبانی
               </Heading>
-              <Text>16 ساعت</Text>
+              <Text>{support}</Text>
             </Box>
           </HStack>
         </CardBody>
@@ -72,9 +90,9 @@ const Status = () => {
             <BsBackpack2 size={36} color="green" />
             <Box>
               <Heading as="h4" fontSize="md" fontFamily="fontBold">
-                وضعیت دوره
+                پیش نیازها
               </Heading>
-              <Text>16 ساعت</Text>
+              <Text>{requirement}</Text>
             </Box>
           </HStack>
         </CardBody>
@@ -85,9 +103,9 @@ const Status = () => {
             <BsCameraReels size={36} color="green" />
             <Box>
               <Heading as="h4" fontSize="md" fontFamily="fontBold">
-                وضعیت دوره
+                نوع مشاهده
               </Heading>
-              <Text>16 ساعت</Text>
+              <Text>به صورت آنلاین</Text>
             </Box>
           </HStack>
         </CardBody>
