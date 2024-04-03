@@ -37,7 +37,7 @@ const Review = () => {
             variant="solid"
             borderRadius="3xl"
             size="md"
-            fontFamily="fontBody"
+            fontFamily="fontBold"
             fontSize="sm"
           >
             ایجاد نظر جدید
