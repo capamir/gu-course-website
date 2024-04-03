@@ -1,35 +1,56 @@
 from rest_framework import serializers
 from decimal import Decimal
-from .models import Product, Review, Cart, CartItem, Customer, Order, OrderItem, Chapter, Lesson
+from .models import Product, Review, Cart, CartItem, Customer, Order, OrderItem, Chapter, Lesson, Teacher
 
+
+class TeacherSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Teacher
+        fields = ['id', 'name', 'image'] 
 
 class ProductSerializer(serializers.ModelSerializer):
     price_with_tax = serializers.SerializerMethodField(method_name='calculate_tax')
+    members_count = serializers.SerializerMethodField(method_name='calculate_members_count')
+    rate = serializers.SerializerMethodField(method_name='calculate_avg_rate',)
+    teachers = TeacherSerializer(many=True, read_only=True)
 
     class Meta:
         model = Product
-        fields = ['id', 'title', 'bio', 'description', 'slug', 'price', 'price_with_tax', 'image', 'available']
+        fields = ['id', 'title', 'bio', 'description', 
+                  'slug', 'price', 'price_with_tax', 
+                  'image', 'available', 'teachers', 
+                  'members_count', 'rate']
 
     def calculate_tax(self, product: Product):
         return product.price * Decimal(1.1)
+    
+    def calculate_members_count(self, product: Product):
+        return product.orderitems.count()
+    
+    def calculate_avg_rate(self, product: Product):
+        query = product.reviews.all() 
+        count = query.count()
+        if count == 0:
+            return 5
+        return sum([review.rate for review in query]) // count
 
 class LessonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Lesson
-        fields = ['id', 'title'] 
+        fields = ['id', 'title', 'duration'] 
 
 class ChapterSerializer(serializers.ModelSerializer):
     lessons = LessonSerializer(many=True, read_only=True)
 
     class Meta:
         model = Chapter
-        fields = ['id', 'title', 'lessons'] 
+        fields = ['id', 'title', 'duration_Chapter', 'lesson_total', 'lessons'] 
     
 
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
-        fields = ['id', 'date', 'name', 'description']
+        fields = ['id', 'rate', 'name', 'description', 'date']
 
     def create(self, validated_data):
         product_id = self.context['product_id']
