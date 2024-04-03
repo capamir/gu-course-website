@@ -1,19 +1,13 @@
-import {
-  Card,
-  CardBody,
-  Flex,
-  Heading,
-  HStack,
-  SimpleGrid,
-  Spacer,
-  Text,
-  useColorMode,
-} from "@chakra-ui/react";
+import { Card, CardBody, Heading, HStack, SimpleGrid } from "@chakra-ui/react";
 import { HiMiniAcademicCap } from "react-icons/hi2";
+import { ChapterType } from "../../types/Product";
+import Chapter from "./Chapter";
 
-const SubTitle = () => {
-  const { colorMode } = useColorMode();
+interface Props {
+  chapters: ChapterType[];
+}
 
+const SubTitle: React.FC<Props> = ({ chapters }) => {
   return (
     <Card marginY={6}>
       <CardBody>
@@ -24,26 +18,9 @@ const SubTitle = () => {
           </Heading>
         </HStack>
         <SimpleGrid spacing={6}>
-          <Card
-            borderRadius="xl"
-            bg={colorMode === "dark" ? "" : "gray.50"}
-            boxShadow="md"
-          >
-            <CardBody>
-              <Flex>
-                <Heading as="h4" fontSize="lg" fontFamily="fontBold">
-                  وضعیت دوره
-                </Heading>
-                <Spacer />
-                <Text>
-                  <span>0 </span>
-                  جلسه،
-                  <span>0 </span>
-                  دقیقه
-                </Text>
-              </Flex>
-            </CardBody>
-          </Card>
+          {chapters.map((chapter) => (
+            <Chapter chapter={chapter} />
+          ))}
         </SimpleGrid>
       </CardBody>
     </Card>
