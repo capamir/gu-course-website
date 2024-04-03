@@ -6,7 +6,7 @@ from .models import Product, Review, Cart, CartItem, Customer, Order, OrderItem,
 class TeacherSerializer(serializers.ModelSerializer):
     class Meta:
         model = Teacher
-        fields = ['id', 'name', 'image'] 
+        fields = ['id', 'name', 'title', 'image'] 
 
 class ProductSerializer(serializers.ModelSerializer):
     price_with_tax = serializers.SerializerMethodField(method_name='calculate_tax')
@@ -60,7 +60,7 @@ class ReviewSerializer(serializers.ModelSerializer):
 class DetailsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Details
-        fields = ['product', 'status', 'progress', 'duration', 'support'] 
+        fields = ['status', 'progress', 'duration', 'support', 'requirement'] 
 
 
 class ProductDetailSerializer(ProductSerializer):
@@ -69,7 +69,7 @@ class ProductDetailSerializer(ProductSerializer):
     details = DetailsSerializer(many=False, read_only=True)
 
     class Meta(ProductSerializer.Meta):
-        fields = ProductSerializer.Meta.fields + ['chapters', 'reviews', 'details']
+        fields = ProductSerializer.Meta.fields + ['chapters', 'reviews', 'details', 'updated']
 
 
 class SimpleProductSerializer(serializers.ModelSerializer):

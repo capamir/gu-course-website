@@ -50,6 +50,7 @@ class Details(models.Model):
     duration_minutes = models.PositiveIntegerField(default=0)
     support = models.CharField(max_length=255, default="آنلاین")
     progress = models.PositiveIntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(100)])
+    requirement = models.CharField(max_length=255, default="بدون پیشنیاز")
 
     @property
     def duration(self):
