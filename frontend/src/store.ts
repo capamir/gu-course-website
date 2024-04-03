@@ -8,6 +8,9 @@ export const useDataStore = create<DataStoreType>()(
   persist<DataStoreType>(
     (set) => ({
       bucket: [],
+      cart_id: "",
+      setCartId: (id) => set(() => ({ cart_id: id })),
+      clearCartId: () => set(() => ({ cart_id: "" })),
       setProduct: (product) =>
         set((state) =>
           !state.bucket.find((p) => p.id === product.id)
