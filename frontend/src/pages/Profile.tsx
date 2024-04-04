@@ -22,17 +22,25 @@ import {
   IoHomeOutline,
 } from "react-icons/io5";
 import { RiLogoutBoxRLine, RiMenu3Line } from "react-icons/ri";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { logo } from "../assets";
 import ColorModeSwitch from "../components/layout/Navbar/ColorModeSwitch";
 import { CustomMenuItem, TabItem } from "../components/Profile";
+import { useAuthStore } from "../store";
 
 const Profile = () => {
   const params = useParams();
+  const navigate = useNavigate();
   const [tab, setTab] = useState("home");
+  const user = useAuthStore((s) => s.user);
+
   useEffect(() => {
     if (params.tab) setTab(params.tab);
   }, [params.tab]);
+
+  useEffect(() => {
+    if (user) navigate("auth/login");
+  }, [navigate, user]);
   return (
     <Grid
       templateAreas={{ base: `"main"`, lg: `"aside main"` }}
