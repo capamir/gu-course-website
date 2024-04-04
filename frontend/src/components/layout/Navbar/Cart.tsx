@@ -16,8 +16,18 @@ const Cart = () => {
   return (
     <Menu>
       <MenuButton as={Box} cursor="pointer">
-        <Box bg="gray.100" borderRadius="3xl" padding={2}>
+        <Box position="relative" bg="gray.100" borderRadius="3xl" padding={2}>
           <IoCartOutline size={22} color="black" />
+          <Text
+            position="absolute"
+            top="-2"
+            right="-1"
+            bg="green"
+            borderRadius="3xl"
+            paddingX={1}
+          >
+            {bucket.length}
+          </Text>
         </Box>
       </MenuButton>
       <MenuList>
