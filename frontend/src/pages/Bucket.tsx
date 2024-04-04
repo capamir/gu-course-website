@@ -11,8 +11,10 @@ import {
 import { IoCartOutline, IoWalletSharp } from "react-icons/io5";
 import { useDataStore } from "../store";
 import { CartItems } from "../components";
+import { useNavigate } from "react-router-dom";
 
 const Bucket = () => {
+  const navigate = useNavigate();
   const bucket = useDataStore((s) => s.bucket);
 
   return (
@@ -32,6 +34,7 @@ const Bucket = () => {
             variant="solid"
             borderRadius="3xl"
             size="md"
+            onClick={() => navigate("/profile?tab=orders")}
           >
             ثبت نهایی
           </Button>
