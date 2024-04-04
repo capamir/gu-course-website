@@ -14,17 +14,25 @@ import {
   Spacer,
   Text,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BiConversation } from "react-icons/bi";
-import { IoFolderOpenOutline, IoHomeOutline } from "react-icons/io5";
+import {
+  IoCartOutline,
+  IoFolderOpenOutline,
+  IoHomeOutline,
+} from "react-icons/io5";
 import { RiLogoutBoxRLine, RiMenu3Line } from "react-icons/ri";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { logo } from "../assets";
 import ColorModeSwitch from "../components/layout/Navbar/ColorModeSwitch";
 import { CustomMenuItem, TabItem } from "../components/Profile";
 
 const Profile = () => {
-  const [tab, setTab] = useState("پیشخوان");
+  const params = useParams();
+  const [tab, setTab] = useState("home");
+  useEffect(() => {
+    if (params.tab) setTab(params.tab);
+  }, [params.tab]);
   return (
     <Grid
       templateAreas={{ base: `"main"`, lg: `"aside main"` }}
@@ -42,17 +50,20 @@ const Profile = () => {
               </Text>
             </HStack>
           </Link>
-          <TabItem tab={tab} setTab={setTab} label="پیشخوان">
+          <TabItem tab={tab} setTab={setTab} label="home" text="پیشخوان">
             <IoHomeOutline size={24} />
           </TabItem>
-          <TabItem tab={tab} setTab={setTab} label="دوره ها">
+          <TabItem tab={tab} setTab={setTab} label="courses" text="دوره ها">
             <IoFolderOpenOutline size={24} />
           </TabItem>
-          <TabItem tab={tab} setTab={setTab} label="تیکت ها">
+          <TabItem tab={tab} setTab={setTab} label="orders" text="سفارشات">
+            <IoCartOutline size={24} />
+          </TabItem>
+          <TabItem tab={tab} setTab={setTab} label="tickets" text="تیکت ها">
             <BiConversation size={24} />
           </TabItem>
 
-          <TabItem tab={tab} setTab={setTab} label="خروج">
+          <TabItem tab={tab} setTab={setTab} label="logout" text="خروج">
             <RiLogoutBoxRLine size={24} />
           </TabItem>
         </GridItem>
@@ -74,16 +85,44 @@ const Profile = () => {
                       </HStack>
                     </MenuButton>
                     <MenuList>
-                      <CustomMenuItem tab={tab} setTab={setTab} label="پیشخوان">
+                      <CustomMenuItem
+                        tab={tab}
+                        setTab={setTab}
+                        label="home"
+                        text="پیشخوان"
+                      >
                         <RiMenu3Line size={24} />
                       </CustomMenuItem>
-                      <CustomMenuItem tab={tab} setTab={setTab} label="دوره ها">
+                      <CustomMenuItem
+                        tab={tab}
+                        setTab={setTab}
+                        label="courses"
+                        text="دوره ها"
+                      >
                         <IoFolderOpenOutline size={24} />
                       </CustomMenuItem>
-                      <CustomMenuItem tab={tab} setTab={setTab} label="تیکت ها">
+                      <CustomMenuItem
+                        tab={tab}
+                        setTab={setTab}
+                        label="orders"
+                        text="سفارشات"
+                      >
+                        <IoCartOutline size={24} />
+                      </CustomMenuItem>
+                      <CustomMenuItem
+                        tab={tab}
+                        setTab={setTab}
+                        label="tickets"
+                        text="تیکت ها"
+                      >
                         <BiConversation size={24} />
                       </CustomMenuItem>
-                      <CustomMenuItem tab={tab} setTab={setTab} label="خروج">
+                      <CustomMenuItem
+                        tab={tab}
+                        setTab={setTab}
+                        label="logout"
+                        text="خروج"
+                      >
                         <RiLogoutBoxRLine size={24} />
                       </CustomMenuItem>
                     </MenuList>
