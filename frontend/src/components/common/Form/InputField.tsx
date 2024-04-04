@@ -17,7 +17,7 @@ const InputField: React.FC<Props> = ({ label, type, register, error }) => {
   return (
     <FormControl isInvalid={error}>
       <FormLabel htmlFor="name">{label}</FormLabel>
-      <Input type={type} {...register} />
+      <Input type={type} {...register} boxShadow="md" />
       {error && <FormErrorMessage>{error.message}</FormErrorMessage>}
     </FormControl>
   );
