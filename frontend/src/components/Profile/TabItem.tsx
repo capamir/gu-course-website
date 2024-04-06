@@ -12,6 +12,7 @@ const TabItem: React.FC<Props> = ({ tab, label, text, children, onClick }) => {
       borderRadius="md"
       bg={tab === label ? "#00d084" : ""}
       onClick={() => onClick(label)}
+      cursor="pointer"
     >
       {children}
       <Text>{text}</Text>
