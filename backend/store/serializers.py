@@ -1,6 +1,8 @@
-from rest_framework import serializers
 from decimal import Decimal
+from django.db import transaction
+from rest_framework import serializers
 from .models import Product, Review, Cart, CartItem, Customer, Order, OrderItem, Chapter, Lesson, Teacher, Details
+from .signals import order_created
 
 
 class TeacherSerializer(serializers.ModelSerializer):

@@ -9,7 +9,6 @@ export const useAddCartItem = () => {
   return useMutation({
     mutationFn: apiClient.post,
     onSuccess(savedItem) {
-      console.log("savedItem", savedItem);
       updateProduct(savedItem.id!, savedItem.product_id);
     },
   });

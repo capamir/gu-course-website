@@ -48,9 +48,9 @@ export class AuthAPIClient<T> {
 
 authInstance.interceptors.request.use(
   (config) => {
-    const user = JSON.parse(localStorage.getItem("user")!);
-
-    config.headers["Authorization"] = `Bearer ${user.access}`;
+    const { state } = JSON.parse(localStorage.getItem("auth")!);
+    console.log(state.user);
+    config.headers["Authorization"] = `Bearer ${state.user.access}`;
     return config;
   },
   (error: Error) => Promise.reject(error)
@@ -61,8 +61,8 @@ const refreshApiClient = new APIClient<RefreshTokenData>("auth/token/refresh/");
 authInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
-    const user = JSON.parse(localStorage.getItem("user")!);
-
+    const { state } = JSON.parse(localStorage.getItem("auth")!);
+    const { user } = state;
     const config = error?.config;
 
     if (error.response.status === 401) {
@@ -72,8 +72,13 @@ authInstance.interceptors.response.use(
         });
 
         localStorage.setItem(
-          "user",
-          JSON.stringify({ ...user, access: refreshResponseData.access })
+          "auth",
+          JSON.stringify({
+            state: JSON.stringify({
+              ...user,
+              access: refreshResponseData.access,
+            }),
+          })
         );
 
         config.headers[
@@ -82,9 +87,8 @@ authInstance.interceptors.response.use(
 
         return axiosInstance(config);
       } catch (e) {
-        localStorage.removeItem("user");
-
-        window.location.replace("/auth/login");
+        // localStorage.removeItem("auth");
+        // window.location.replace("/auth/login");
       }
     }
 

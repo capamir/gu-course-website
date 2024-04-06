@@ -4,17 +4,16 @@ import { mountStoreDevtool } from "simple-zustand-devtools";
 
 import { AuthStoreType, DataStoreType } from "./types/Store";
 import { LoginResponse } from "./types/Auth";
+import { OrderType } from "./types/Order";
 
 export const useDataStore = create<DataStoreType>()(
   persist<DataStoreType>(
     (set) => ({
       bucket: [],
-      cart_id: "",
-      setCartId: (id) => set(() => ({ cart_id: id })),
-      clearCartId: () => set(() => ({ cart_id: "" })),
+
       setProduct: (product) =>
         set((state) =>
-          !state.bucket.find((p) => p.id === product.id)
+          !state.bucket.find((p) => p.product_id === product.product_id)
             ? { bucket: [...state.bucket, product] }
             : state
         ),
@@ -27,6 +26,13 @@ export const useDataStore = create<DataStoreType>()(
           ),
         })),
       clearBucket: () => set(() => ({ bucket: [] })),
+
+      cart_id: "",
+      setCartId: (id) => set(() => ({ cart_id: id })),
+      clearCartId: () => set(() => ({ cart_id: "" })),
+
+      order: {} as OrderType,
+      setOrder: (order) => set(() => ({ order })),
     }),
     { name: "store" }
   )
@@ -38,6 +44,7 @@ export const useAuthStore = create<AuthStoreType>()(
       user: {} as LoginResponse,
       login: (user) => set(() => ({ user })),
       logout: () => set(() => ({ user: {} as LoginResponse })),
+
       phone_number: "",
       setPhoneNumber: (phone_number: string) => set(() => ({ phone_number })),
       clearPhoneNumber: () => set(() => ({ phone_number: "" })),

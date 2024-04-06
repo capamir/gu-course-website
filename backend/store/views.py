@@ -6,7 +6,7 @@ from rest_framework.permissions import AllowAny, DjangoModelPermissions, DjangoM
 from rest_framework.decorators import action, permission_classes
 from rest_framework import status
 from .models import Product, Review, Cart, CartItem, Customer, Order, OrderItem
-from .serializers import ProductSerializer, ProductDetailSerializer, ReviewSerializer, CartSerializer, CartItemSerializer, AddCartItemSerializer, CustomerSerializer
+from .serializers import ProductSerializer, ProductDetailSerializer, ReviewSerializer, CartSerializer, CartItemSerializer, AddCartItemSerializer, CustomerSerializer, OrderSerializer, CreateOrderSerializer, UpdateOrderSerializer
 from .permissions import FullDjangoModelPermissions, IsAdminOrReadOnly, ViewCustomerHistoryPermission
 
 # Create your views here.
@@ -115,7 +115,6 @@ class OrderViewSet(ModelViewSet):
         if user.is_staff:
             return Order.objects.all()
 
-        customer_id = Customer.objects.only(
-            'id').get(user_id=user.id)
+        customer_id = Customer.objects.only('id').get(user_id=user.id)
         return Order.objects.filter(customer_id=customer_id)
 

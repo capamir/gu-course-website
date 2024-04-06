@@ -2,6 +2,11 @@ from django.conf import settings
 from django.db.models.signals import post_save, post_delete
 from .models import Customer, Chapter, Lesson, Product, Details
 
+from django.dispatch import Signal
+
+order_created = Signal()
+
+
 def createCustomer(sender, **kwargs):
   if kwargs['created']:
     Customer.objects.create(user=kwargs['instance'])

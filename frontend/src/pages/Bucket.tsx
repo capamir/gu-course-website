@@ -9,14 +9,17 @@ import {
   Spacer,
 } from "@chakra-ui/react";
 import { IoCartOutline, IoWalletSharp } from "react-icons/io5";
-import { useDataStore } from "../store";
 import { CartItems } from "../components";
-import { useNavigate } from "react-router-dom";
+import { useCreateOrder } from "../hooks/useOrder";
+import { useDataStore } from "../store";
 
 const Bucket = () => {
-  const navigate = useNavigate();
   const bucket = useDataStore((s) => s.bucket);
-
+  const { mutate } = useCreateOrder();
+  const cart_id = useDataStore((s) => s.cart_id);
+  const handleClick = () => {
+    mutate({ cart_id });
+  };
   return (
     <Card marginY={6}>
       <CardHeader>
@@ -34,7 +37,7 @@ const Bucket = () => {
             variant="solid"
             borderRadius="3xl"
             size="md"
-            onClick={() => navigate("/profile?tab=orders")}
+            onClick={handleClick}
           >
             ثبت نهایی
           </Button>
