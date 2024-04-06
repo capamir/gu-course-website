@@ -5,14 +5,16 @@ import { useMutation } from "@tanstack/react-query";
 import { FormsType, LoginResponse } from "../types/Auth";
 import { loginApiClient } from "../services/authServices";
 import { useAuthStore } from "../store";
+import { useNavigate } from "react-router-dom";
 
 export const useLoginUser = () => {
   const login = useAuthStore((s) => s.login);
+  const navigate = useNavigate();
   return useMutation<LoginResponse, Error, LoginResponse>({
     mutationFn: loginApiClient.post,
     onSuccess: (user: LoginResponse) => {
-      console.log(user);
       login(user);
+      navigate("/");
     },
   });
 };
@@ -38,7 +40,7 @@ const forms: FormsType = {
     title: "ثبت‌نام در کوئرا تسک منیجر",
     label: "ثبت نام",
     schema: {
-      phone: z.string().regex(phoneRegex, "شماره تلفت مامعتبر میباشد!"),
+      phone_number: z.string().regex(phoneRegex, "شماره تلفت مامعتبر میباشد!"),
       email: z
         .string()
         .min(1, { message: "ایمیل الزامی است" })
@@ -54,7 +56,7 @@ const forms: FormsType = {
       }),
     },
     fields: [
-      { key: "phone", type: "text", label: "شماره تلفن" },
+      { key: "phone_number", type: "text", label: "شماره تلفن" },
       { key: "email", type: "email", label: "ایمیل" },
       { key: "password", type: "password", label: "رمز عبور" },
       { key: "terms", type: "checkbox", label: "قوانین و مقررات را می‌پذیرم." },
