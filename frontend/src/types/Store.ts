@@ -14,6 +14,9 @@ export interface DataStoreType {
 
 export interface AuthStoreType {
   user: LoginResponse;
+  phone_number: string;
+  setPhoneNumber: (phone_number: string) => void;
+  clearPhoneNumber: () => void;
   login: (user: LoginResponse) => void;
   logout: () => void;
 }

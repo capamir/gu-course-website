@@ -1,12 +1,13 @@
 import { Form } from "../../components";
-import { useNavigate } from "react-router-dom";
-import { LoginResponse } from "../../types/Auth";
+import { useVerifyrUser } from "../../hooks/useAuth";
+import { useAuthStore } from "../../store";
+import { VerifyDataType } from "../../types/Auth";
 
 const VerifyCode = () => {
-  const navigate = useNavigate();
-  const onSubmit = (data: LoginResponse) => {
-    console.log(data);
-    navigate("/");
+  const phone = useAuthStore((s) => s.phone_number);
+  const { mutate } = useVerifyrUser();
+  const onSubmit = (data: VerifyDataType) => {
+    mutate({ ...data, phone });
   };
   return <Form formClass={"code"} onSubmit={onSubmit} />;
 };

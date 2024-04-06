@@ -38,6 +38,9 @@ export const useAuthStore = create<AuthStoreType>()(
       user: {} as LoginResponse,
       login: (user) => set(() => ({ user })),
       logout: () => set(() => ({ user: {} as LoginResponse })),
+      phone_number: "",
+      setPhoneNumber: (phone_number: string) => set(() => ({ phone_number })),
+      clearPhoneNumber: () => set(() => ({ phone_number: "" })),
     }),
     { name: "auth" }
   )

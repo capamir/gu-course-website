@@ -2,8 +2,12 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
-import { FormsType, LoginResponse } from "../types/Auth";
-import { loginApiClient } from "../services/authServices";
+import { FormsType, LoginResponse, VerifyDataType } from "../types/Auth";
+import {
+  loginApiClient,
+  registerApiClient,
+  verifyApiClient,
+} from "../services/authServices";
 import { useAuthStore } from "../store";
 import { useNavigate } from "react-router-dom";
 
@@ -14,6 +18,32 @@ export const useLoginUser = () => {
     mutationFn: loginApiClient.post,
     onSuccess: (user: LoginResponse) => {
       login(user);
+      navigate("/");
+    },
+  });
+};
+
+export const useRegisterUser = () => {
+  const setPhoneNumber = useAuthStore((s) => s.setPhoneNumber);
+  const navigate = useNavigate();
+  return useMutation<LoginResponse, Error, LoginResponse>({
+    mutationFn: registerApiClient.post,
+    onMutate: (newUser: LoginResponse) => {
+      setPhoneNumber(newUser.phone_number);
+    },
+    onSuccess: () => {
+      navigate("/auth/verify");
+    },
+  });
+};
+
+export const useVerifyrUser = () => {
+  const navigate = useNavigate();
+  const clearPhoneNumber = useAuthStore((s) => s.clearPhoneNumber);
+  return useMutation<VerifyDataType, Error, VerifyDataType>({
+    mutationFn: verifyApiClient.post,
+    onSuccess: () => {
+      clearPhoneNumber();
       navigate("/");
     },
   });
@@ -40,6 +70,7 @@ const forms: FormsType = {
     title: "ثبت‌نام در کوئرا تسک منیجر",
     label: "ثبت نام",
     schema: {
+      full_name: z.string().min(1, { message: "ایمیل الزامی است" }),
       phone_number: z.string().regex(phoneRegex, "شماره تلفت مامعتبر میباشد!"),
       email: z
         .string()
@@ -48,7 +79,7 @@ const forms: FormsType = {
       password: z
         .string()
         .min(6, { message: "پسورد باید حداقل 6 کاراکتر باشد." }),
-      confirmPassword: z
+      password2: z
         .string()
         .min(6, { message: "پسورد باید حداقل 6 کاراکتر باشد." }),
       terms: z.literal(true, {
@@ -56,9 +87,12 @@ const forms: FormsType = {
       }),
     },
     fields: [
+      { key: "full_name", type: "text", label: "نام و نام خانوادگی" },
       { key: "phone_number", type: "text", label: "شماره تلفن" },
       { key: "email", type: "email", label: "ایمیل" },
       { key: "password", type: "password", label: "رمز عبور" },
+      { key: "password2", type: "password", label: "تکرار رمز عبور" },
+
       { key: "terms", type: "checkbox", label: "قوانین و مقررات را می‌پذیرم." },
     ],
   },
@@ -74,12 +108,12 @@ const forms: FormsType = {
     title: "تایید رمز یکبار مصرف",
     label: "تایید",
     schema: {
-      phone: z
-        .number()
+      code: z
+        .string()
         .min(4, { message: "پسورد باید دقیقا 4 عدد باشد." })
         .max(4, { message: "پسورد باید دقیقا 4 عدد باشد." }),
     },
-    fields: [{ key: "phone", type: "text", label: "شماره تلفن" }],
+    fields: [{ key: "code", type: "text", label: "کد یکبار مصرف" }],
   },
 };
 
@@ -95,8 +129,8 @@ const useAuth = (formClass: string) => {
         ? zodResolver(
             z
               .object(schema)
-              .refine((data) => data.password === data.confirmPassword, {
-                path: ["confirmPassword"],
+              .refine((data) => data.password !== data.confirmPassword, {
+                path: ["password2"],
                 message: "پسورد و تکرار آن باید یکسان باشد.",
               })
           )

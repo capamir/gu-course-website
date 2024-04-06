@@ -23,3 +23,8 @@ export interface RefreshTokenData {
   access?: string;
   refresh: string;
 }
+
+export interface VerifyDataType {
+  phone?: string;
+  code: string;
+}

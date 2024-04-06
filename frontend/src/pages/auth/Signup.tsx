@@ -1,14 +1,13 @@
-import { useNavigate } from "react-router-dom";
-import { LoginResponse } from "../../types/Auth";
 import { Form } from "../../components";
+import { useRegisterUser } from "../../hooks/useAuth";
+import { LoginResponse } from "../../types/Auth";
 
 const Signup = () => {
-  const navigate = useNavigate();
+  const { mutate, error } = useRegisterUser();
   const onSubmit = (data: LoginResponse) => {
-    console.log(data);
-    navigate("/");
+    mutate(data);
   };
-  return <Form formClass={"signUp"} onSubmit={onSubmit} />;
+  return <Form formClass={"signUp"} onSubmit={onSubmit} mutateError={error} />;
 };
 
 export default Signup;
