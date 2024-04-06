@@ -39,7 +39,7 @@ const Profile = () => {
   }, [params.tab]);
 
   useEffect(() => {
-    if (user) navigate("auth/login");
+    if (!user.id) navigate("auth/login");
   }, [navigate, user]);
   return (
     <Grid

@@ -1,9 +1,21 @@
 import { z } from "zod";
-import { FormsType } from "../types/Auth";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
+import { FormsType, LoginResponse } from "../types/Auth";
+import { loginApiClient } from "../services/authServices";
+import { useAuthStore } from "../store";
 
-export const useLoginUser = () => {};
+export const useLoginUser = () => {
+  const login = useAuthStore((s) => s.login);
+  return useMutation<LoginResponse, Error, LoginResponse>({
+    mutationFn: loginApiClient.post,
+    onSuccess: (user: LoginResponse) => {
+      console.log(user);
+      login(user);
+    },
+  });
+};
 
 const phoneRegex = new RegExp(
   /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/
@@ -14,14 +26,11 @@ const forms: FormsType = {
     title: "به کوئرا تسک منیجر خوش برگشتی :) ",
     label: "ورود",
     schema: {
-      email: z
-        .string()
-        .min(1, { message: "ایمیل الزامی است" })
-        .email("ایمیل وارد شده معتبر نیست"),
+      phone_number: z.string().regex(phoneRegex, "شماره تلفت مامعتبر میباشد!"),
       password: z.string().min(1, "رمز عبور الزامی است"),
     },
     fields: [
-      { key: "email", type: "email", label: "ایمیل" },
+      { key: "phone_number", type: "text", label: "شماره تلفن" },
       { key: "password", type: "password", label: "رمز عبور" },
     ],
   },

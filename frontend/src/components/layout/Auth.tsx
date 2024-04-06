@@ -1,7 +1,16 @@
 import { Box } from "@chakra-ui/react";
-import { Outlet } from "react-router-dom";
+import { useEffect } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
+import { useAuthStore } from "../../store";
 
 const Auth = () => {
+  const navigate = useNavigate();
+  const user = useAuthStore((s) => s.user);
+
+  useEffect(() => {
+    // if (user.id) navigate("/");
+  }, [navigate, user]);
+
   return (
     <Box position="relative" overflow="hidden" w="100%" h="100vh">
       <Outlet />

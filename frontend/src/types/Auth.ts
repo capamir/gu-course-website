@@ -11,15 +11,15 @@ export interface LoginResponse {
   refresh?: string;
   access?: string;
   id?: number;
-  phone_number?: string;
+  phone_number: string;
   email?: string;
   name?: string;
   password?: string;
-  is_active: true;
-  isAdmin: true;
+  is_active?: true;
+  isAdmin?: true;
 }
 
 export interface RefreshTokenData {
   access?: string;
-  refresh?: string;
+  refresh: string;
 }
