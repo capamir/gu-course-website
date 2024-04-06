@@ -33,10 +33,15 @@ const Profile = () => {
   const navigate = useNavigate();
   const [tab, setTab] = useState("home");
   const user = useAuthStore((s) => s.user);
+  const logout = useAuthStore((s) => s.logout);
 
   const handleClick = (label: string) => {
     setTab(label);
     navigate(`/profile?tab=${label}`);
+  };
+  const handleLogout = () => {
+    logout();
+    navigate("/");
   };
 
   useEffect(() => {
@@ -91,7 +96,7 @@ const Profile = () => {
             <BiConversation size={24} />
           </TabItem>
 
-          <TabItem tab={tab} label="logout" text="خروج" onClick={handleClick}>
+          <TabItem tab={tab} label="logout" text="خروج" onClick={handleLogout}>
             <RiLogoutBoxRLine size={24} />
           </TabItem>
         </GridItem>
@@ -149,7 +154,7 @@ const Profile = () => {
                         tab={tab}
                         label="logout"
                         text="خروج"
-                        onClick={handleClick}
+                        onClick={handleLogout}
                       >
                         <RiLogoutBoxRLine size={24} />
                       </CustomMenuItem>
