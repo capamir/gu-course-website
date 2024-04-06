@@ -27,10 +27,11 @@ import { logo } from "../assets";
 import ColorModeSwitch from "../components/layout/Navbar/ColorModeSwitch";
 import { CustomMenuItem, TabItem } from "../components/Profile";
 import { useAuthStore } from "../store";
+import Cart from "../components/layout/Navbar/Cart";
 
 const menuItemList = [
   {
-    label: "Home",
+    label: "home",
     text: "پیشخوان",
     icon: IoHomeOutline,
   },
@@ -111,7 +112,7 @@ const Profile = () => {
       <GridItem area="main">
         <Card borderRadius="xl">
           <CardBody>
-            <Flex>
+            <Flex gap={3}>
               <Box>
                 <Show above="lg">
                   <Text>امیرحسین عزیز خوش آمدی</Text>
@@ -127,6 +128,7 @@ const Profile = () => {
                     <MenuList>
                       {menuItemList.map((item) => (
                         <CustomMenuItem
+                          key={item.label}
                           tab={tab}
                           label={item.label}
                           text={item.text}
@@ -149,6 +151,7 @@ const Profile = () => {
                 </Show>
               </Box>
               <Spacer />
+              <Cart />
               <ColorModeSwitch />
             </Flex>
           </CardBody>
