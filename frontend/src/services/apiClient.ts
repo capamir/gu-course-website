@@ -1,4 +1,5 @@
 import axios from "axios";
+import { RefreshTokenData } from "../types/Auth";
 
 export const axiosInstance = axios.create({
   baseURL: "http://localhost:8000/",
@@ -45,46 +46,48 @@ export class AuthAPIClient<T> {
   };
 }
 
-// authInstance.interceptors.request.use(
-//   (config) => {
-//     const user = JSON.parse(localStorage.getItem("user")!);
+authInstance.interceptors.request.use(
+  (config) => {
+    const user = JSON.parse(localStorage.getItem("user")!);
 
-//     config.headers["Authorization"] = `Bearer ${user.access}`;
-//     return config;
-//   },
-//   (error: Error) => Promise.reject(error)
-// );
+    config.headers["Authorization"] = `Bearer ${user.access}`;
+    return config;
+  },
+  (error: Error) => Promise.reject(error)
+);
 
-// authInstance.interceptors.response.use(
-//   (response) => response,
-//   async (error) => {
-//     const user = JSON.parse(localStorage.getItem("user")!);
+const refreshApiClient = new APIClient<RefreshTokenData>("auth/token/refresh/");
 
-//     const config = error?.config;
+authInstance.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const user = JSON.parse(localStorage.getItem("user")!);
 
-//     if (error.response.status === 401) {
-//       try {
-//         const refreshResponseData = await refreshApiClient.post({
-//           refresh: user.refresh,
-//         });
+    const config = error?.config;
 
-//         localStorage.setItem(
-//           "user",
-//           JSON.stringify({ ...user, access: refreshResponseData.access })
-//         );
+    if (error.response.status === 401) {
+      try {
+        const refreshResponseData = await refreshApiClient.post({
+          refresh: user.refresh,
+        });
 
-//         config.headers[
-//           "Authorization"
-//         ] = `Bearer ${refreshResponseData.access}`;
+        localStorage.setItem(
+          "user",
+          JSON.stringify({ ...user, access: refreshResponseData.access })
+        );
 
-//         return axiosInstance(config);
-//       } catch (e) {
-//         localStorage.removeItem("user");
+        config.headers[
+          "Authorization"
+        ] = `Bearer ${refreshResponseData.access}`;
 
-//         window.location.replace("/auth/login");
-//       }
-//     }
+        return axiosInstance(config);
+      } catch (e) {
+        localStorage.removeItem("user");
 
-//     return Promise.reject(error);
-//   }
-// );
+        window.location.replace("/auth/login");
+      }
+    }
+
+    return Promise.reject(error);
+  }
+);

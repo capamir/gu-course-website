@@ -8,11 +8,18 @@ export interface FormsType {
 }
 
 export interface LoginResponse {
+  refresh?: string;
+  access?: string;
   id?: number;
-  email?: string;
-  password?: string;
-  full_name?: string;
   phone_number?: string;
+  email?: string;
+  name?: string;
+  password?: string;
+  is_active: true;
+  isAdmin: true;
+}
+
+export interface RefreshTokenData {
   access?: string;
   refresh?: string;
 }
