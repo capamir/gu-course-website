@@ -1,33 +1,19 @@
 import { MenuItem, Text } from "@chakra-ui/react";
 import React from "react";
-import { useNavigate } from "react-router-dom";
-
-interface Props {
-  tab: string;
-  setTab: (tab: string) => void;
-  label: string;
-  text: string;
-  children: JSX.Element;
-}
+import { Props } from "../../types/Profile";
 
 const CustomMenuItem: React.FC<Props> = ({
   tab,
-  setTab,
   label,
   text,
   children,
+  onClick,
 }) => {
-  const navigate = useNavigate();
-
-  const handleClick = () => {
-    setTab(label);
-    navigate(`/profile?tab=${label}`);
-  };
   return (
     <MenuItem
       gap={1}
       marginY={2}
-      onClick={handleClick}
+      onClick={() => onClick(label)}
       bg={tab === label ? "#00d084" : ""}
     >
       {children}

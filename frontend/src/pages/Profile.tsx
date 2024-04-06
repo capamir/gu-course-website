@@ -34,6 +34,11 @@ const Profile = () => {
   const [tab, setTab] = useState("home");
   const user = useAuthStore((s) => s.user);
 
+  const handleClick = (label: string) => {
+    setTab(label);
+    navigate(`/profile?tab=${label}`);
+  };
+
   useEffect(() => {
     if (params.tab) setTab(params.tab);
   }, [params.tab]);
@@ -58,20 +63,35 @@ const Profile = () => {
               </Text>
             </HStack>
           </Link>
-          <TabItem tab={tab} setTab={setTab} label="home" text="پیشخوان">
+          <TabItem tab={tab} label="home" text="پیشخوان" onClick={handleClick}>
             <IoHomeOutline size={24} />
           </TabItem>
-          <TabItem tab={tab} setTab={setTab} label="courses" text="دوره ها">
+          <TabItem
+            tab={tab}
+            label="courses"
+            text="دوره ها"
+            onClick={handleClick}
+          >
             <IoFolderOpenOutline size={24} />
           </TabItem>
-          <TabItem tab={tab} setTab={setTab} label="orders" text="سفارشات">
+          <TabItem
+            tab={tab}
+            label="orders"
+            text="سفارشات"
+            onClick={handleClick}
+          >
             <IoCartOutline size={24} />
           </TabItem>
-          <TabItem tab={tab} setTab={setTab} label="tickets" text="تیکت ها">
+          <TabItem
+            tab={tab}
+            label="tickets"
+            text="تیکت ها"
+            onClick={handleClick}
+          >
             <BiConversation size={24} />
           </TabItem>
 
-          <TabItem tab={tab} setTab={setTab} label="logout" text="خروج">
+          <TabItem tab={tab} label="logout" text="خروج" onClick={handleClick}>
             <RiLogoutBoxRLine size={24} />
           </TabItem>
         </GridItem>
@@ -95,41 +115,41 @@ const Profile = () => {
                     <MenuList>
                       <CustomMenuItem
                         tab={tab}
-                        setTab={setTab}
                         label="home"
                         text="پیشخوان"
+                        onClick={handleClick}
                       >
                         <RiMenu3Line size={24} />
                       </CustomMenuItem>
                       <CustomMenuItem
                         tab={tab}
-                        setTab={setTab}
                         label="courses"
                         text="دوره ها"
+                        onClick={handleClick}
                       >
                         <IoFolderOpenOutline size={24} />
                       </CustomMenuItem>
                       <CustomMenuItem
                         tab={tab}
-                        setTab={setTab}
                         label="orders"
                         text="سفارشات"
+                        onClick={handleClick}
                       >
                         <IoCartOutline size={24} />
                       </CustomMenuItem>
                       <CustomMenuItem
                         tab={tab}
-                        setTab={setTab}
                         label="tickets"
                         text="تیکت ها"
+                        onClick={handleClick}
                       >
                         <BiConversation size={24} />
                       </CustomMenuItem>
                       <CustomMenuItem
                         tab={tab}
-                        setTab={setTab}
                         label="logout"
                         text="خروج"
+                        onClick={handleClick}
                       >
                         <RiLogoutBoxRLine size={24} />
                       </CustomMenuItem>

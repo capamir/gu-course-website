@@ -1,21 +1,8 @@
 import { HStack, Text } from "@chakra-ui/react";
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Props } from "../../types/Profile";
 
-interface Props {
-  tab: string;
-  setTab: (tab: string) => void;
-  label: string;
-  text: string;
-  children: JSX.Element;
-}
-
-const TabItem: React.FC<Props> = ({ tab, setTab, label, text, children }) => {
-  const navigate = useNavigate();
-  const handleClick = () => {
-    setTab(label);
-    navigate(`/profile?tab=${label}`);
-  };
+const TabItem: React.FC<Props> = ({ tab, label, text, children, onClick }) => {
   return (
     <HStack
       alignItems="center"
@@ -24,8 +11,7 @@ const TabItem: React.FC<Props> = ({ tab, setTab, label, text, children }) => {
       marginY={3}
       borderRadius="md"
       bg={tab === label ? "#00d084" : ""}
-      onClick={handleClick}
-      cursor="pointer"
+      onClick={() => onClick(label)}
     >
       {children}
       <Text>{text}</Text>
