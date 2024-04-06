@@ -37,7 +37,7 @@ export const useAuthStore = create<AuthStoreType>()(
     (set) => ({
       user: {} as LoginResponse,
       login: (user) => set(() => ({ user })),
-      logout: () => set(() => ({})),
+      logout: () => set(() => ({ user: {} as LoginResponse })),
     }),
     { name: "auth" }
   )
