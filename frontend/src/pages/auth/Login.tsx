@@ -5,12 +5,12 @@ import { useLoginUser } from "../../hooks/useAuth";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { mutate } = useLoginUser();
+  const { mutate, error } = useLoginUser();
   const onSubmit = (data: LoginResponse) => {
     mutate(data);
     navigate("/");
   };
-  return <Form formClass={"signIn"} onSubmit={onSubmit} />;
+  return <Form formClass={"signIn"} onSubmit={onSubmit} mutateError={error} />;
 };
 
 export default Login;
