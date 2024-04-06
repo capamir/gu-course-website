@@ -28,6 +28,29 @@ import ColorModeSwitch from "../components/layout/Navbar/ColorModeSwitch";
 import { CustomMenuItem, TabItem } from "../components/Profile";
 import { useAuthStore } from "../store";
 
+const menuItemList = [
+  {
+    label: "Home",
+    text: "پیشخوان",
+    icon: IoHomeOutline,
+  },
+  {
+    label: "courses",
+    text: "دوره ها",
+    icon: IoFolderOpenOutline,
+  },
+  {
+    label: "orders",
+    text: "سفارشات",
+    icon: IoCartOutline,
+  },
+  {
+    label: "tickets",
+    text: "تیکت ها",
+    icon: BiConversation,
+  },
+];
+
 const Profile = () => {
   const params = useParams();
   const navigate = useNavigate();
@@ -68,33 +91,17 @@ const Profile = () => {
               </Text>
             </HStack>
           </Link>
-          <TabItem tab={tab} label="home" text="پیشخوان" onClick={handleClick}>
-            <IoHomeOutline size={24} />
-          </TabItem>
-          <TabItem
-            tab={tab}
-            label="courses"
-            text="دوره ها"
-            onClick={handleClick}
-          >
-            <IoFolderOpenOutline size={24} />
-          </TabItem>
-          <TabItem
-            tab={tab}
-            label="orders"
-            text="سفارشات"
-            onClick={handleClick}
-          >
-            <IoCartOutline size={24} />
-          </TabItem>
-          <TabItem
-            tab={tab}
-            label="tickets"
-            text="تیکت ها"
-            onClick={handleClick}
-          >
-            <BiConversation size={24} />
-          </TabItem>
+          {menuItemList.map((item) => (
+            <TabItem
+              key={item.label}
+              tab={tab}
+              label={item.label}
+              text={item.text}
+              onClick={handleClick}
+            >
+              <item.icon size={24} />
+            </TabItem>
+          ))}
 
           <TabItem tab={tab} label="logout" text="خروج" onClick={handleLogout}>
             <RiLogoutBoxRLine size={24} />
@@ -118,38 +125,17 @@ const Profile = () => {
                       </HStack>
                     </MenuButton>
                     <MenuList>
-                      <CustomMenuItem
-                        tab={tab}
-                        label="home"
-                        text="پیشخوان"
-                        onClick={handleClick}
-                      >
-                        <RiMenu3Line size={24} />
-                      </CustomMenuItem>
-                      <CustomMenuItem
-                        tab={tab}
-                        label="courses"
-                        text="دوره ها"
-                        onClick={handleClick}
-                      >
-                        <IoFolderOpenOutline size={24} />
-                      </CustomMenuItem>
-                      <CustomMenuItem
-                        tab={tab}
-                        label="orders"
-                        text="سفارشات"
-                        onClick={handleClick}
-                      >
-                        <IoCartOutline size={24} />
-                      </CustomMenuItem>
-                      <CustomMenuItem
-                        tab={tab}
-                        label="tickets"
-                        text="تیکت ها"
-                        onClick={handleClick}
-                      >
-                        <BiConversation size={24} />
-                      </CustomMenuItem>
+                      {menuItemList.map((item) => (
+                        <CustomMenuItem
+                          tab={tab}
+                          label={item.label}
+                          text={item.text}
+                          onClick={handleClick}
+                        >
+                          <item.icon size={24} />
+                        </CustomMenuItem>
+                      ))}
+
                       <CustomMenuItem
                         tab={tab}
                         label="logout"
