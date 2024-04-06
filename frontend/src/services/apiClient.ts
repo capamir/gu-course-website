@@ -49,7 +49,6 @@ export class AuthAPIClient<T> {
 authInstance.interceptors.request.use(
   (config) => {
     const { state } = JSON.parse(localStorage.getItem("auth")!);
-    console.log(state.user);
     config.headers["Authorization"] = `Bearer ${state.user.access}`;
     return config;
   },
@@ -74,10 +73,11 @@ authInstance.interceptors.response.use(
         localStorage.setItem(
           "auth",
           JSON.stringify({
-            state: JSON.stringify({
+            ...state,
+            user: {
               ...user,
               access: refreshResponseData.access,
-            }),
+            },
           })
         );
 
@@ -87,8 +87,8 @@ authInstance.interceptors.response.use(
 
         return axiosInstance(config);
       } catch (e) {
-        // localStorage.removeItem("auth");
-        // window.location.replace("/auth/login");
+        localStorage.removeItem("auth");
+        window.location.replace("/auth/login");
       }
     }
 
