@@ -21,6 +21,7 @@ export interface AuthStoreType {
   user: LoginResponse;
   login: (user: LoginResponse) => void;
   logout: () => void;
+  refresh: (access: string) => void;
   phone_number: string;
   setPhoneNumber: (phone_number: string) => void;
   clearPhoneNumber: () => void;

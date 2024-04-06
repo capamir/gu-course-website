@@ -1,5 +1,6 @@
 import axios from "axios";
 import { RefreshTokenData } from "../types/Auth";
+import { useAuthStore } from "../store";
 
 export const axiosInstance = axios.create({
   baseURL: "http://localhost:8000/",
@@ -48,47 +49,47 @@ export class AuthAPIClient<T> {
 
 authInstance.interceptors.request.use(
   (config) => {
-    const { state } = JSON.parse(localStorage.getItem("auth")!);
-    config.headers["Authorization"] = `Bearer ${state.user.access}`;
+    const { user } = useAuthStore.getState();
+    config.headers["Authorization"] = `Bearer ${user.access}`;
     return config;
   },
   (error: Error) => Promise.reject(error)
 );
 
-const refreshApiClient = new APIClient<RefreshTokenData>("auth/token/refresh/");
+// Create a function to refresh the token
+async function refreshToken(data: { refresh: string }) {
+  // Call your API endpoint to refresh the token
+  const response = await axios.post<RefreshTokenData>(
+    "auth/token/refresh/",
+    data
+  );
+  // Assuming the new token is returned in the response
+  return response.data.access;
+}
 
 authInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
-    const { state } = JSON.parse(localStorage.getItem("auth")!);
-    const { user } = state;
+    const { user } = useAuthStore.getState();
     const config = error?.config;
 
     if (error.response.status === 401) {
       try {
-        const refreshResponseData = await refreshApiClient.post({
-          refresh: user.refresh,
+        const newAccessToken = await refreshToken({
+          refresh: user.refresh!,
         });
 
-        localStorage.setItem(
-          "auth",
-          JSON.stringify({
-            ...state,
-            user: {
-              ...user,
-              access: refreshResponseData.access,
-            },
-          })
-        );
+        // Update access token in Zustand global state
+        useAuthStore.getState().refresh(newAccessToken);
 
-        config.headers[
-          "Authorization"
-        ] = `Bearer ${refreshResponseData.access}`;
-
+        // Retry the original request with the new access token
+        config.headers["Authorization"] = `Bearer ${newAccessToken}`;
         return axiosInstance(config);
       } catch (e) {
+        // Handle token refresh failure
         localStorage.removeItem("auth");
         window.location.replace("/auth/login");
+        return Promise.reject(e);
       }
     }
 

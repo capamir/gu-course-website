@@ -20,7 +20,7 @@ export interface LoginResponse {
 }
 
 export interface RefreshTokenData {
-  access?: string;
+  access: string;
   refresh: string;
 }
 
