@@ -33,6 +33,7 @@ export const useDataStore = create<DataStoreType>()(
 
       order: {} as OrderType,
       setOrder: (order) => set(() => ({ order })),
+      clearOrder: () => set(() => ({ order: {} })),
     }),
     { name: "store" }
   )

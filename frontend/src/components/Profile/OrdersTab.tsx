@@ -2,10 +2,14 @@ import { Button, Flex, Heading, HStack, Spacer } from "@chakra-ui/react";
 import { useDataStore } from "../../store";
 import OrderItem from "./OrderItem";
 import { IoCartOutline, IoWalletSharp } from "react-icons/io5";
+import { useUpdateOrder } from "../../hooks/useOrder";
 
 const OrdersTab = () => {
   const order = useDataStore((s) => s.order);
-  const handleClick = () => {};
+  const { mutate } = useUpdateOrder();
+  const handleClick = () => {
+    mutate({ payment_status: "C" });
+  };
   return (
     <>
       <Flex marginBottom={5}>

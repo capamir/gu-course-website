@@ -15,6 +15,7 @@ export interface DataStoreType {
 
   order: OrderType;
   setOrder: (order: OrderType) => void;
+  clearOrder: () => void;
 }
 
 export interface AuthStoreType {
