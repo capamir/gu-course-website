@@ -22,12 +22,13 @@ import {
   IoHomeOutline,
 } from "react-icons/io5";
 import { RiLogoutBoxRLine, RiMenu3Line } from "react-icons/ri";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { logo } from "../assets";
+import Cart from "../components/layout/Navbar/Cart";
 import ColorModeSwitch from "../components/layout/Navbar/ColorModeSwitch";
 import { CustomMenuItem, TabItem } from "../components/Profile";
 import { useAuthStore } from "../store";
-import Cart from "../components/layout/Navbar/Cart";
+import OrdersTab from "../components/Profile/OrdersTab";
 
 const menuItemList = [
   {
@@ -53,7 +54,7 @@ const menuItemList = [
 ];
 
 const Profile = () => {
-  const params = useParams();
+  const { search } = useLocation();
   const navigate = useNavigate();
   const [tab, setTab] = useState("home");
   const user = useAuthStore((s) => s.user);
@@ -69,9 +70,11 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    if (params.tab) setTab(params.tab);
-  }, [params.tab]);
-
+    if (search) {
+      const searchTab = search.split("=")[1];
+      setTab(searchTab);
+    }
+  }, [search]);
   useEffect(() => {
     if (!user.id) navigate("auth/login");
   }, [navigate, user]);
@@ -112,10 +115,10 @@ const Profile = () => {
       <GridItem area="main">
         <Card borderRadius="xl">
           <CardBody>
-            <Flex gap={3}>
+            <Flex gap={3} marginBottom={12}>
               <Box>
                 <Show above="lg">
-                  <Text>امیرحسین عزیز خوش آمدی</Text>
+                  <Text>{user.name} عزیز خوش آمدی</Text>
                 </Show>
                 <Show below="lg">
                   <Menu>
@@ -154,6 +157,7 @@ const Profile = () => {
               <Cart />
               <ColorModeSwitch />
             </Flex>
+            {tab === "orders" && <OrdersTab />}
           </CardBody>
         </Card>
       </GridItem>
