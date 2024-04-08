@@ -11,6 +11,7 @@ interface OrderItemType {
   id: number;
   price: number;
   product: SimpleProductType;
+  license_code?: string;
 }
 
 interface SimpleProductType {

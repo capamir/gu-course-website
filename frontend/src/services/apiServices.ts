@@ -14,7 +14,10 @@ export const CartItemApiClient = () => {
 export const CreateOrderApiClient = new AuthAPIClient<OrderType>(
   `store/orders/`
 );
+
 export const UpdateOrderApiClient = () => {
   const { id } = useDataStore((s) => s.order);
   return new AuthAPIClient<OrderType>(`store/orders/${id}/`);
 };
+
+export const CoursesApiClient = new AuthAPIClient<OrderType>(`store/courses/`);

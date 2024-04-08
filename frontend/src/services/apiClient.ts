@@ -38,6 +38,8 @@ export class AuthAPIClient<T> {
     this.endpoint = endpoint;
   }
 
+  getAll = () => authInstance.get<T[]>(this.endpoint).then((res) => res.data);
+
   post = (data: T) => {
     return authInstance.post<T>(this.endpoint, data).then((res) => res.data);
   };

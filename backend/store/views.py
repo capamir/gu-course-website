@@ -118,3 +118,16 @@ class OrderViewSet(ModelViewSet):
         customer_id = Customer.objects.only('id').get(user_id=user.id)
         return Order.objects.filter(customer_id=customer_id)
 
+
+class CourseViewSet(ModelViewSet):
+    http_method_names = ['get']
+    serializer_class = OrderSerializer
+
+    def get_permissions(self):
+        return [IsAuthenticated()]
+
+    def get_queryset(self):
+        user = self.request.user
+
+        customer_id = Customer.objects.only('id').get(user_id=user.id)
+        return Order.objects.filter(customer_id=customer_id, payment_status="C")

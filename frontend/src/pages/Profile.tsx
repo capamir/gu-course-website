@@ -1,7 +1,13 @@
 import { Card, CardBody, Grid, GridItem, Show } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { HomeTab, Navbar, OrdersTab, Sidebar } from "../components/Profile";
+import {
+  CoursesTab,
+  HomeTab,
+  Navbar,
+  OrdersTab,
+  Sidebar,
+} from "../components/Profile";
 import { useAuthStore } from "../store";
 
 const Profile = () => {
@@ -53,6 +59,7 @@ const Profile = () => {
               handleLogout={handleLogout}
             />
             {tab === "home" && <HomeTab />}
+            {tab === "courses" && <CoursesTab />}
             {tab === "orders" && <OrdersTab />}
           </CardBody>
         </Card>
