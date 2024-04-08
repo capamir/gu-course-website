@@ -1,57 +1,8 @@
-import {
-  Box,
-  Card,
-  CardBody,
-  Flex,
-  Grid,
-  GridItem,
-  HStack,
-  Image,
-  Menu,
-  MenuButton,
-  MenuList,
-  Show,
-  Spacer,
-  Text,
-} from "@chakra-ui/react";
+import { Card, CardBody, Grid, GridItem, Show } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { BiConversation } from "react-icons/bi";
-import {
-  IoCartOutline,
-  IoFolderOpenOutline,
-  IoHomeOutline,
-} from "react-icons/io5";
-import { RiLogoutBoxRLine, RiMenu3Line } from "react-icons/ri";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { logo } from "../assets";
-import Cart from "../components/layout/Navbar/Cart";
-import ColorModeSwitch from "../components/layout/Navbar/ColorModeSwitch";
-import { CustomMenuItem, TabItem } from "../components/Profile";
+import { useLocation, useNavigate } from "react-router-dom";
+import { HomeTab, Navbar, OrdersTab, Sidebar } from "../components/Profile";
 import { useAuthStore } from "../store";
-import OrdersTab from "../components/Profile/OrdersTab";
-
-const menuItemList = [
-  {
-    label: "home",
-    text: "پیشخوان",
-    icon: IoHomeOutline,
-  },
-  {
-    label: "courses",
-    text: "دوره ها",
-    icon: IoFolderOpenOutline,
-  },
-  {
-    label: "orders",
-    text: "سفارشات",
-    icon: IoCartOutline,
-  },
-  {
-    label: "tickets",
-    text: "تیکت ها",
-    icon: BiConversation,
-  },
-];
 
 const Profile = () => {
   const { search } = useLocation();
@@ -86,77 +37,22 @@ const Profile = () => {
       marginX={{ base: 0, lg: 12 }}
     >
       <Show above="lg">
-        <GridItem area="aside" paddingX={10}>
-          <Link to="/">
-            <HStack marginBottom={10}>
-              <Image src={logo} boxSize="70px" objectFit="cover" />
-              <Text fontFamily="fontBold" fontSize="2xl">
-                ML Course
-              </Text>
-            </HStack>
-          </Link>
-          {menuItemList.map((item) => (
-            <TabItem
-              key={item.label}
-              tab={tab}
-              label={item.label}
-              text={item.text}
-              onClick={handleClick}
-            >
-              <item.icon size={24} />
-            </TabItem>
-          ))}
-
-          <TabItem tab={tab} label="logout" text="خروج" onClick={handleLogout}>
-            <RiLogoutBoxRLine size={24} />
-          </TabItem>
-        </GridItem>
+        <Sidebar
+          tab={tab}
+          handleClick={handleClick}
+          handleLogout={handleLogout}
+        />
       </Show>
       <GridItem area="main">
         <Card borderRadius="xl">
           <CardBody>
-            <Flex gap={3} marginBottom={12}>
-              <Box>
-                <Show above="lg">
-                  <Text>{user.name} عزیز خوش آمدی</Text>
-                </Show>
-                <Show below="lg">
-                  <Menu>
-                    <MenuButton as={Box} cursor="pointer">
-                      <HStack alignItems="center">
-                        <RiMenu3Line size={26} />
-                        <Text>{tab}</Text>
-                      </HStack>
-                    </MenuButton>
-                    <MenuList>
-                      {menuItemList.map((item) => (
-                        <CustomMenuItem
-                          key={item.label}
-                          tab={tab}
-                          label={item.label}
-                          text={item.text}
-                          onClick={handleClick}
-                        >
-                          <item.icon size={24} />
-                        </CustomMenuItem>
-                      ))}
-
-                      <CustomMenuItem
-                        tab={tab}
-                        label="logout"
-                        text="خروج"
-                        onClick={handleLogout}
-                      >
-                        <RiLogoutBoxRLine size={24} />
-                      </CustomMenuItem>
-                    </MenuList>
-                  </Menu>
-                </Show>
-              </Box>
-              <Spacer />
-              <Cart />
-              <ColorModeSwitch />
-            </Flex>
+            <Navbar
+              tab={tab}
+              name={user.name!}
+              handleClick={handleClick}
+              handleLogout={handleLogout}
+            />
+            {tab === "home" && <HomeTab />}
             {tab === "orders" && <OrdersTab />}
           </CardBody>
         </Card>
