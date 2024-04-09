@@ -124,6 +124,13 @@ class OrderItem(models.Model):
     license_code = models.CharField(max_length=255, null=True, blank=True) 
     price = models.IntegerField()
 	
+    def clean(self):
+        existing_order_items = OrderItem.objects.filter(
+            order__customer=self.order.customer,
+            product=self.product
+        )
+        if existing_order_items.exists() and self.pk is None:
+            raise ValidationError("This product has already been added to the order.")
 
 class Cart(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid4)
