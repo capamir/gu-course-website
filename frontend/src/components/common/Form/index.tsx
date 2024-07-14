@@ -10,12 +10,12 @@ import {
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../../hooks";
-import { LoginResponse } from "../../../types/Auth";
+// import { LoginResponse } from "../../../types/Auth";
 import InputField from "./InputField";
 
 interface FormProps {
   formClass: string;
-  onSubmit: (data: LoginResponse) => void;
+  onSubmit: (data: any) => void;
   mutateError?: Error | null;
 }
 
