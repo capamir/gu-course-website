@@ -20,12 +20,7 @@ def update_lesson_total_on_lesson_delete(sender, instance, **kwargs):
     instance.chapter.lesson_total -= 1
     instance.chapter.save()
 
-def create_details_on_product_save(sender, instance, created, **kwargs):
-    if created:
-        Details.objects.create(product=instance)
-
 
 post_save.connect(createCustomer, sender=settings.AUTH_USER_MODEL)
 post_save.connect(update_lesson_total_on_lesson_save, sender=Lesson)
 post_delete.connect(update_lesson_total_on_lesson_delete, sender=Lesson)
-post_save.connect(create_details_on_product_save, sender=Product)
