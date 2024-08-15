@@ -6,14 +6,13 @@ import {
   Text,
   useColorMode,
 } from "@chakra-ui/react";
-import { heroDark, heroLight } from "../../assets";
+import { hero } from "../../assets";
 
 const Hero = () => {
   const { colorMode } = useColorMode();
   return (
     <Flex
       direction={{ base: "column-reverse", lg: "row" }}
-      gap={7}
       marginBottom={7}
       justifyContent="space-between"
     >
@@ -21,18 +20,18 @@ const Hero = () => {
         <Heading
           as="h1"
           fontFamily="fontHeading"
-          fontSize="30px"
+          fontSize="40px"
           fontWeight="bold"
           marginBottom={8}
         >
-          آکادمی آموزش برنامه نویسی دیتاکمپ{" "}
+          به دیتاکورس کمپ خوش آمدید{" "}
         </Heading>
-        <Text fontFamily="fontHeading" fontSize="xl" fontWeight="bold">
-          با آکادمی دیتاکمپ، علوم داده رو با خیال راحت یاد بگیر و پیشرفت کن{" "}
+        <Text fontFamily="fontHeading" fontSize="26px" fontWeight="bold">
+          با ما، علوم داده رو با خیال راحت فرابگیر{" "}
         </Text>
       </Box>
-      <Box flex="1">
-        <Image src={colorMode === "dark" ? heroDark : heroLight} />
+      <Box flex="1" w="50%">
+        <Image src={hero} />
       </Box>
     </Flex>
   );

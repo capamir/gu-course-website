@@ -30,7 +30,7 @@ const Details = () => {
               <Status details={course.details!} updated={course.updated} />
               <Description description={course.description} />
               <SubTitle chapters={course.chapters!} />
-              <Review />
+              <Review id={id!} />
             </GridItem>
             <Show above="lg">
               <GridItem area="aside">

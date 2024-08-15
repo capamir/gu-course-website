@@ -7,8 +7,10 @@ import {
   SimpleGrid,
   Text,
 } from "@chakra-ui/react";
-import { BsBackpack2, BsCameraReels, BsInfoCircle } from "react-icons/bs";
-import { IoCalendarOutline, IoPeopleOutline } from "react-icons/io5";
+import { BsBackpack2, BsInfoCircle } from "react-icons/bs";
+import { FaFileCode } from "react-icons/fa";
+import { GiNotebook } from "react-icons/gi";
+import { IoPeopleOutline } from "react-icons/io5";
 import { LuClock4 } from "react-icons/lu";
 import { DetailsType } from "../../types/Product";
 
@@ -26,7 +28,7 @@ const statusState: StateType = {
   C: "اتمام ضبط",
 };
 
-const Status: React.FC<Props> = ({ details, updated }) => {
+const Status: React.FC<Props> = ({ details }) => {
   const { status, duration, support, requirement } = details;
   return (
     <SimpleGrid columns={{ sm: 2, md: 2, lg: 3, xl: 3 }} spacing={6}>
@@ -61,12 +63,12 @@ const Status: React.FC<Props> = ({ details, updated }) => {
       <Card borderRadius="xl" boxShadow="lg">
         <CardBody>
           <HStack gap={3}>
-            <IoCalendarOutline size={36} color="green" />
+            <FaFileCode size={36} color="green" />
             <Box>
               <Heading as="h4" fontSize="md" fontFamily="fontBold">
-                آخرین آپدیت
+                شامل کد
               </Heading>
-              <Text>{updated}</Text>
+              <Text>سورس برنامه</Text>
             </Box>
           </HStack>
         </CardBody>
@@ -100,12 +102,12 @@ const Status: React.FC<Props> = ({ details, updated }) => {
       <Card borderRadius="xl" boxShadow="lg">
         <CardBody>
           <HStack gap={3}>
-            <BsCameraReels size={36} color="green" />
+            <GiNotebook size={36} color="green" />
             <Box>
               <Heading as="h4" fontSize="md" fontFamily="fontBold">
-                نوع مشاهده
+                شامل اسلاید
               </Heading>
-              <Text>به صورت آنلاین</Text>
+              <Text>مباحث تدریس شده</Text>
             </Box>
           </HStack>
         </CardBody>
