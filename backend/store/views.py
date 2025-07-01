@@ -8,21 +8,25 @@ from rest_framework import status
 from .models import Product, Review, Cart, CartItem, Customer, Order, OrderItem
 from .serializers import ProductSerializer, ProductDetailSerializer, ReviewSerializer, CartSerializer, CartItemSerializer, AddCartItemSerializer, CustomerSerializer, OrderSerializer, CreateOrderSerializer, UpdateOrderSerializer
 from .permissions import FullDjangoModelPermissions, IsAdminOrReadOnly, ViewCustomerHistoryPermission
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
 
-# Create your views here.
+
 class ProductViewSet(ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     search_fields = ['title', 'description']
     ordering_fields = ['price', 'updated']
 
+    # Cache the list action for 15 minutes
+    @method_decorator(cache_page(60 * 15))
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
     def get_serializer_class(self):
         if self.action == 'retrieve':
-            # Use ProductDetailSerializer for listing and retrieving individual instances
             return ProductDetailSerializer
-        else:
-            # Use default ProductSerializer for other actions (create, update, partial_update)
-            return ProductSerializer
+        return ProductSerializer
 
     def get_serializer_context(self):
         return {'request': self.request}
@@ -36,6 +40,11 @@ class ProductViewSet(ModelViewSet):
 
 class ReviewViewSet(ModelViewSet):
     serializer_class = ReviewSerializer
+
+    # Cache the list action for 15 minutes
+    @method_decorator(cache_page(60 * 15))
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
 
     def get_queryset(self):
         return Review.objects.filter(product_id=self.kwargs['product_pk'])
