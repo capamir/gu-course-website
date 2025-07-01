@@ -82,8 +82,8 @@ const Bio: React.FC<Props> = ({ course }) => {
           </HStack>
         </Flex>
       </Box>
-      <Box>
-        <Image src={noImage} borderRadius="3xl" />
+      <Box flex={1}>
+        <Image src={image} borderRadius="3xl" />
       </Box>
     </Flex>
   );

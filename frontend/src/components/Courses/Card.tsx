@@ -25,7 +25,13 @@ const CourseCard: React.FC<Props> = ({ course }) => {
   return (
     <Card boxShadow="xl" borderRadius="3xl">
       <Link to={`/${id}`}>
-        <Image src={image} borderRadius="3xl" margin="auto" />
+        <Image
+          src={image}
+          borderRadius="3xl"
+          margin="auto"
+          objectFit="cover"
+          w="90%"
+        />
       </Link>
       <CardBody>
         <Link to={`/${id}`}>

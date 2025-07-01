@@ -7,6 +7,8 @@ import {
   Divider,
   Flex,
   Spacer,
+  LinkBox,
+  Image,
 } from "@chakra-ui/react";
 import { FaTelegram } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -130,6 +132,23 @@ const Footer = () => {
               <Text>آموزش پایتون</Text>
             </HStack>
           </Link>
+        </Box>
+        <Box>
+          <Heading as="h3" fontFamily="fontBold" fontSize="lg" marginBottom={6}>
+            شبکه های اجتماعی
+          </Heading>
+          <a
+            referrerpolicy="origin"
+            target="_blank"
+            href="https://trustseal.enamad.ir/?id=508799&Code=wCkoIZUdHBTXY3GVnq4o60VtESAS7zwa"
+          >
+            <img
+              referrerpolicy="origin"
+              src="https://trustseal.enamad.ir/logo.aspx?id=508799&Code=wCkoIZUdHBTXY3GVnq4o60VtESAS7zwa"
+              alt=""
+              code="wCkoIZUdHBTXY3GVnq4o60VtESAS7zwa"
+            />
+          </a>
         </Box>
       </SimpleGrid>
       <Divider />

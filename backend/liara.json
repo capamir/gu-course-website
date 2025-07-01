@@ -1,0 +1,13 @@
+{
+  "disk": [
+    {
+      "name": "datacamp-database",
+      "mountTO": ""
+    },
+    {
+      "name": "datacamp-media",
+      "mountTO": "media"
+    }
+  ],
+  "app": "cap-network"
+}

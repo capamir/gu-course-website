@@ -28,7 +28,7 @@ const SearchInput = () => {
   };
   return (
     <form onSubmit={handleSubmit}>
-      <InputGroup borderRadius="3xl" {...border}>
+      <InputGroup borderRadius="3xl" {...border} w="90%">
         <InputLeftElement cursor="pointer" children={<BsSearch />} />
         <Input
           ref={ref}
