@@ -2,11 +2,17 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.mixins import CreateModelMixin
-from rest_framework.viewsets import GenericViewSet
+from rest_framework.viewsets import GenericViewSet, ModelViewSet
 from rest_framework_simplejwt.views import TokenObtainPairView as BaseTokenObtainPairView
+from rest_framework.permissions import IsAuthenticated
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
 
-from .models import User, OtpCode
-from .serializers import UserRegisterSerializer, TokenObtainPairSerializer, OTPVerificationSerializer
+from .models import User, OtpCode, Message
+from .serializers import UserRegisterSerializer, TokenObtainPairSerializer, OTPVerificationSerializer, MessageSerializer
+
+from .tasks import generate_ai_response
+
 
 # Create your views here.
 class UserRegister(CreateModelMixin, GenericViewSet):
@@ -50,3 +56,28 @@ class OTPVerificationViewSet(CreateModelMixin, GenericViewSet):
                 return Response({'message': 'Invalid OTP code'}, status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class MessageViewSet(ModelViewSet):
+    queryset = Message.objects.all()
+    serializer_class = MessageSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        # Admins see all messages; users see their own and admin replies
+        if self.request.user.is_staff:
+            return Message.objects.all()
+        return Message.objects.filter(user=self.request.user) | Message.objects.filter(parent__user=self.request.user)
+
+    def get_serializer_context(self):
+        return {'request': self.request}
+
+    @method_decorator(cache_page(60 * 15))  # Cache message list for 15 minutes
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
+    def perform_create(self, serializer):
+        message = serializer.save()
+        # Notify admins if a non-admin user sends a message
+        if not self.request.user.is_staff:
+            notify_admin.delay(message.id)

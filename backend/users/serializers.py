@@ -2,7 +2,7 @@ from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer as BaseTokenObtainPairSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from .models import User
+from .models import User, Message
 
 
 def clean_email(value):
@@ -78,3 +78,16 @@ class TokenObtainPairSerializer(BaseTokenObtainPairSerializer):
 class OTPVerificationSerializer(serializers.Serializer):
     code = serializers.CharField(max_length=4)
     phone = serializers.CharField(max_length=11)
+
+
+class MessageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Message
+        fields = ['id', 'user', 'content', 'is_admin_response', 'created_at', 'parent']
+        read_only_fields = ['user', 'is_admin_response', 'created_at']
+
+    def create(self, validated_data):
+        validated_data['user'] = self.context['request'].user
+        if self.context['request'].user.is_staff:
+            validated_data['is_admin_response'] = True
+        return super().create(validated_data)

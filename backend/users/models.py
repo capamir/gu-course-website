@@ -30,3 +30,13 @@ class OtpCode(models.Model):
 
 	def __str__(self):
 		return f'{self.phone_number} - {self.code} - {self.created}'
+
+class Message(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='messages')
+    content = models.TextField()
+    is_admin_response = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    parent = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE, related_name='replies')
+
+    def __str__(self):
+        return f"Message by {self.user.username} at {self.created_at}"
