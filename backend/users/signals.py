@@ -1,7 +1,7 @@
 from random import randint
 from django.conf import settings
 from django.db.models.signals import post_save
-from .models import OtpCode, User, message
+from .models import OtpCode, User, Message
 
 def createOtpCode(sender, instance: User, created, **kwargs):
   if created:

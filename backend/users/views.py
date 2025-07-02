@@ -11,8 +11,6 @@ from django.utils.decorators import method_decorator
 from .models import User, OtpCode, Message
 from .serializers import UserRegisterSerializer, TokenObtainPairSerializer, OTPVerificationSerializer, MessageSerializer
 
-from .tasks import generate_ai_response
-
 
 # Create your views here.
 class UserRegister(CreateModelMixin, GenericViewSet):

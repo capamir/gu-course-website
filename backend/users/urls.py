@@ -7,7 +7,7 @@ from . import views
 router = routers.SimpleRouter()
 router.register('register', views.UserRegister)
 router.register('verify', views.OTPVerificationViewSet, basename='optcode')
-router.register('messages', MessageViewSet, basename='messages')
+router.register('messages', views.MessageViewSet, basename='messages')
 
 urlpatterns = [
     path('login/', views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
