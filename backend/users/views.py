@@ -7,9 +7,13 @@ from rest_framework_simplejwt.views import TokenObtainPairView as BaseTokenObtai
 from rest_framework.permissions import IsAuthenticated
 from django.views.decorators.cache import cache_page
 from django.utils.decorators import method_decorator
+from asgiref.sync import async_to_sync
 
+from core.celery import app as celery_app
+from core.chatbot_agent import invoke_chatbot_agent
 from .models import User, OtpCode, Message
 from .serializers import UserRegisterSerializer, TokenObtainPairSerializer, OTPVerificationSerializer, MessageSerializer
+from .tasks import generate_ai_response
 
 
 # Create your views here.
@@ -76,6 +80,54 @@ class MessageViewSet(ModelViewSet):
 
     def perform_create(self, serializer):
         message = serializer.save()
-        # Notify admins if a non-admin user sends a message
+        # If a non-staff user sends a message, trigger AI response
         if not self.request.user.is_staff:
-            notify_admin.delay(message.id)
+            generate_ai_response.delay(message.id) # Trigger the AI task
+        # No explicit action needed if admin sends a message,
+        # as MessageSerializer's create method already handles is_admin_response=True for staff.
+
+@celery_app.task
+def process_user_message_with_ai(user_message_id):
+    try:
+        user_message = Message.objects.get(id=user_message_id)
+        user_id = user_message.user.id
+        user_input_content = user_message.content
+
+        # Synchronously call the async chatbot agent
+        ai_response_content = async_to_sync(invoke_chatbot_agent)(user_input_content, user_id)
+
+        # Save AI's response
+        Message.objects.create(
+            user=user_message.user,
+            content=ai_response_content,
+            is_admin_response=True, # Mark as AI response
+            parent=user_message # Link to the user's message
+        )
+        print(f"AI response saved for user {user_message.user.full_name}: {ai_response_content}")
+
+    except Exception as e:
+        print(f"Error processing message with AI: {e}")
+        # Log the error, perhaps notify an admin
+
+
+class SendMessageView(APIView):
+    def post(self, request, *args, **kwargs):
+        user = request.user # Assuming user is authenticated
+        if not user.is_authenticated:
+            return Response({"detail": "Authentication required"}, status=status.HTTP_401_UNAUTHORIZED)
+
+        content = request.data.get('content')
+        if not content:
+            return Response({"detail": "Message content is required"}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Save the user's message
+        user_message = Message.objects.create(
+            user=user,
+            content=content,
+            is_admin_response=False
+        )
+
+        # Trigger Celery task to get AI response
+        process_user_message_with_ai.delay(user_message.id)
+
+        return Response({"detail": "Message sent, AI response pending."}, status=status.HTTP_202_ACCEPTED)

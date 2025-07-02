@@ -1,13 +1,15 @@
 from random import randint
 from django.conf import settings
 from django.db.models.signals import post_save
+from django.core.mail import send_mail # Added
+from django.core.cache import cache   # Added
 from .models import OtpCode, User, Message
 
 def createOtpCode(sender, instance: User, created, **kwargs):
-  if created:
-    random_code = randint(1000, 9999)
-    # send_otp_code
-    OtpCode.objects.create(phone_number=instance.phone_number, code=random_code)
+    if created:
+        random_code = randint(1000, 9999)
+        # send_otp_code
+        OtpCode.objects.create(phone_number=instance.phone_number, code=random_code)
 
 def notify_admin_on_message(sender, instance, created, **kwargs):
     if created and not instance.user.is_staff:  # Only notify for new user messages
